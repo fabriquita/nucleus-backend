@@ -1,0 +1,9 @@
+# Gradle files
+.gradle
+build
+
+# Eclipse project files
+.classpath
+.settings
+.project
+bin
