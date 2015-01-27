@@ -12,7 +12,7 @@ public class WebJarsConfig extends WebMvcConfigurerAdapter {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         super.addResourceHandlers(registry);
-        registry.addResourceHandler("/swagger/**").addResourceLocations("classpath:/META-INF/resources/webjars/swagger-ui/2.0.24/");
+        registry.addResourceHandler("/swagger/**").addResourceLocations("classpath:/static/swagger-ui/2.0.24/");
     }
 
 }
