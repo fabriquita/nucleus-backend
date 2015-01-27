@@ -5,10 +5,10 @@ import java.util.List;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
+import springboot.swagger.SpringBootSwaggerConfig;
+
 import com.google.common.collect.Lists;
 import com.mangofactory.swagger.configuration.SpringSwaggerConfig;
-
-import springboot.swagger.SpringBootSwaggerConfig;
 
 @Configuration
 @Import(SpringSwaggerConfig.class)

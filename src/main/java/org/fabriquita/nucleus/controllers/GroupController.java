@@ -44,13 +44,17 @@ public class GroupController {
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public Group update(@PathVariable(value="id") Long id, @RequestBody Map<String, Object> data) {
-	    String name = (String)data.get("name");
-	    Long parentId = new Long((String)data.get("parent_id"));
+	    System.out.println(data);
+		String name = (String)data.get("name");
+	    Long parentId = null;
+	    if((String)data.get("parent_id") != null){
+	    	parentId = new Long((String)data.get("parent_id"));
+	    }
 	    return groupService.update(id, name, parentId);
 	}
 
-	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	@ResponseStatus(value = HttpStatus.NO_CONTENT)
+	@RequestMapping(value = "{id}", method = RequestMethod.DELETE)
+//	@ResponseStatus(value = HttpStatus.NO_CONTENT)
 	public void delete(@PathVariable(value="id") Long id) {
 	    groupService.delete(id);
 	}
