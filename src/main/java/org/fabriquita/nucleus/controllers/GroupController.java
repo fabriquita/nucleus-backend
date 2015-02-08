@@ -38,7 +38,10 @@ public class GroupController {
 	@RequestMapping(value = "/", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public Group add(@RequestBody Map<String, Object> data) {
 	    String name = (String)data.get("name");
-	    Long parentId = new Long((String)data.get("parent_id"));
+	    Long parentId = null;
+	    if(data.get("parent_id") != null){
+	    	parentId = new Long((String)data.get("parent_id"));	    	
+	    }
 	    return groupService.add(name, parentId);
 	}
 
