@@ -45,7 +45,10 @@ public class UserController {
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public User update(@PathVariable(value="id") Long id, @RequestBody Map<String, Object> data) {
-		String name = (String)data.get("name");
+		String name = null;
+		if(data.get("name") != null){
+			name = (String)data.get("name");
+		}
 	    return userService.update(id, name);
 	}
 

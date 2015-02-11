@@ -40,7 +40,9 @@ public class UserService {
 
     public User update(Long id, String name) {
         User user = userRepository.findOne(id);
-        user.setName(name);
+        if(name != null){
+        	user.setName(name);        	
+        }
         return userRepository.save(user);
     }
 

@@ -35,22 +35,35 @@ public class GroupController {
 
 	@RequestMapping(value = "/", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public Group add(@RequestBody Map<String, Object> data) {
-	    String name = (String)data.get("name");
+		String name = (String)data.get("name");
+	    String description = (String)data.get("description");
+	    String archived = (String)data.get("archived");
 	    Long parentId = null;
 	    if(data.get("parent_id") != null){
-	    	parentId = new Long((String)data.get("parent_id"));	    	
+	    	parentId = new Long(data.get("parent_id").toString());
 	    }
-	    return groupService.add(name, parentId);
+	    return groupService.add(name, parentId, description, archived);
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public Group update(@PathVariable(value="id") Long id, @RequestBody Map<String, Object> data) {
-	    String name = (String)data.get("name");
-	    Long parentId = null;
+		String name = null;
+	    String description = null;
+	    String archived = null;
+		Long parentId = null;
 	    if((String)data.get("parent_id") != null){
-	    	parentId = new Long((String)data.get("parent_id"));
+	    	parentId = new Long(data.get("parent_id").toString());
 	    }
-	    return groupService.update(id, name, parentId);
+	    if(data.get("name") != null){
+	    	name = (String) data.get("name");
+	    }
+	    if(data.get("description") != null){
+	    	description = (String) data.get("description");
+	    }
+	    if(data.get("archived") != null){
+	    	archived = (String) data.get("archived");
+	    }
+	    return groupService.update(id, name, parentId, description, archived);
 	}
 
 	@RequestMapping(value = "{id}", method = RequestMethod.DELETE)

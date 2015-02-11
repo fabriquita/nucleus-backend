@@ -15,6 +15,8 @@ public class Group {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    private String description;
+    private String archived;
     private String name;
     private Long level;
 
@@ -55,5 +57,21 @@ public class Group {
     public void setParent(Group parent) {
         this.parent = parent;
     }
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public String getArchived() {
+		return archived;
+	}
+
+	public void setArchived(String archived) {
+		this.archived = archived;
+	}
 
 }

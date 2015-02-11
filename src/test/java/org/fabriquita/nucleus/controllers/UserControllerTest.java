@@ -50,7 +50,7 @@ public class UserControllerTest {
     	
     	//Create a root user with PUT request
 
-    	Group rootGroup = groupService.add("Root",null);
+    	Group rootGroup = groupService.add("Root",null, null, null);
     	
     	Map<String,Object> map = new HashMap<>();
     	map.put("name", "Root");
