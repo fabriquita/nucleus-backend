@@ -21,40 +21,41 @@ import com.wordnik.swagger.annotations.Api;
 public class UserController {
 
     @Autowired
-	private UserService userService;
+    private UserService userService;
 
-	@RequestMapping(value = "/", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<User> list() {
-	    return userService.list();
-	}
+    @RequestMapping(value = "/", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<User> list() {
+        return userService.list();
+    }
 
-	@RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public User get(@PathVariable(value="id") Long id) {
-		return userService.get(id);
-	}
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public User get(@PathVariable(value = "id") Long id) {
+        return userService.get(id);
+    }
 
-	@RequestMapping(value = "/", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public User add(@RequestBody Map<String, Object> data) {
-	    String name = (String)data.get("name");
-	    Long groupId = null;
-	    if(data.get("group_id") != null){
-	    	groupId = new Long(data.get("group_id").toString());
-	    }
-	    return userService.add(name, groupId);
-	}
+    @RequestMapping(value = "/", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public User add(@RequestBody Map<String, Object> data) {
+        String name = (String) data.get("name");
+        Long groupId = null;
+        if (data.get("group_id") != null) {
+            groupId = new Long(data.get("group_id").toString());
+        }
+        return userService.add(name, groupId);
+    }
 
-	@RequestMapping(value = "/{id}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public User update(@PathVariable(value="id") Long id, @RequestBody Map<String, Object> data) {
-		String name = null;
-		if(data.get("name") != null){
-			name = (String)data.get("name");
-		}
-	    return userService.update(id, name);
-	}
+    @RequestMapping(value = "/{id}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public User update(@PathVariable(value = "id") Long id,
+            @RequestBody Map<String, Object> data) {
+        String name = null;
+        if (data.get("name") != null) {
+            name = (String) data.get("name");
+        }
+        return userService.update(id, name);
+    }
 
-	@RequestMapping(value = "{id}", method = RequestMethod.DELETE)
-	public void delete(@PathVariable(value="id") Long id) {
-	    userService.delete(id);
-	}
+    @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
+    public void delete(@PathVariable(value = "id") Long id) {
+        userService.delete(id);
+    }
 
 }

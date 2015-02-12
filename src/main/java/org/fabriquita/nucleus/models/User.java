@@ -17,9 +17,9 @@ public class User {
     private Long id;
 
     private String name;
-    
+
     @ManyToOne
-    @JoinColumn(name="group_id",nullable=true)
+    @JoinColumn(name = "group_id", nullable = true)
     private Group group;
 
     public User() {

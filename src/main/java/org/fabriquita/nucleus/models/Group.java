@@ -58,20 +58,20 @@ public class Group {
         this.parent = parent;
     }
 
-	public String getDescription() {
-		return description;
-	}
+    public String getDescription() {
+        return description;
+    }
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
-	public String getArchived() {
-		return archived;
-	}
+    public String getArchived() {
+        return archived;
+    }
 
-	public void setArchived(String archived) {
-		this.archived = archived;
-	}
+    public void setArchived(String archived) {
+        this.archived = archived;
+    }
 
 }

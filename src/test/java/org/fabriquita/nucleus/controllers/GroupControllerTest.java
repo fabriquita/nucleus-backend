@@ -25,59 +25,63 @@ import org.springframework.web.client.RestTemplate;
 @WebAppConfiguration
 @IntegrationTest("server.port:0")
 public class GroupControllerTest {
-	
-	@Autowired
-	GroupRepository repository;
-	
-	RestTemplate restTemplate = new RestTemplate();
-	
-	String baseUrl;
+
+    @Autowired
+    GroupRepository repository;
+
+    RestTemplate restTemplate = new RestTemplate();
+
+    String baseUrl;
 
     @Value("${local.server.port}")
     int port;
 
     @Test
     public void allTest() {
-    	baseUrl = "http://localhost:"+port+"/group/";
-    	
-    	//Clear all the data
-    	
-    	repository.deleteAll();
-    	
-    	//Create a root group with PUT request
-    	
-    	Map<String,Object> map = new HashMap<>();
-    	map.put("name", "Root");
-    	restTemplate.put(baseUrl, map);
-    	
-    	//Get the root Group
-    	
-    	Map<String,Object> group = (Map<String, Object>) restTemplate.getForObject(baseUrl, Vector.class).firstElement();
-    	
-    	Group root = new Group();
-		root.setName((String) group.get("name"));
-		root.setId(new Long((Integer)group.get("id")));
-		root.setLevel(new Long((Integer)group.get("level")));
-		
-		//Get root by id
-		
-    	Group rootGroup = restTemplate.getForObject(baseUrl+root.getId(), Group.class);
-    	assertEquals(root.getName(),rootGroup.getName());
-    	
-    	//Update it
-    	
-    	String nameToUpdate = "Root++";
-    	Map<String, Object> mp = new HashMap<String, Object>();
-    	mp.put("name", nameToUpdate);
-    	Group updatedGroup = restTemplate.postForObject(baseUrl+root.getId(), mp , Group.class);
-    	assertEquals(nameToUpdate,updatedGroup.getName());
+        baseUrl = "http://localhost:" + port + "/group/";
 
-    	//Delete it
-    	
-    	restTemplate.delete(baseUrl+root.getId());
-    	Group deletedGroup = restTemplate.getForObject(baseUrl+root.getId(), Group.class);
-    	assertNull(deletedGroup);
-    	
+        // Clear all the data
+
+        repository.deleteAll();
+
+        // Create a root group with PUT request
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("name", "Root");
+        restTemplate.put(baseUrl, map);
+
+        // Get the root Group
+
+        Map<String, Object> group = (Map<String, Object>) restTemplate
+                .getForObject(baseUrl, Vector.class).firstElement();
+
+        Group root = new Group();
+        root.setName((String) group.get("name"));
+        root.setId(new Long((Integer) group.get("id")));
+        root.setLevel(new Long((Integer) group.get("level")));
+
+        // Get root by id
+
+        Group rootGroup = restTemplate.getForObject(baseUrl + root.getId(),
+                Group.class);
+        assertEquals(root.getName(), rootGroup.getName());
+
+        // Update it
+
+        String nameToUpdate = "Root++";
+        Map<String, Object> mp = new HashMap<String, Object>();
+        mp.put("name", nameToUpdate);
+        Group updatedGroup = restTemplate.postForObject(baseUrl + root.getId(),
+                mp, Group.class);
+        assertEquals(nameToUpdate, updatedGroup.getName());
+
+        // Delete it
+
+        restTemplate.delete(baseUrl + root.getId());
+        Group deletedGroup = restTemplate.getForObject(baseUrl + root.getId(),
+                Group.class);
+        assertNull(deletedGroup);
+
     }
 
 }

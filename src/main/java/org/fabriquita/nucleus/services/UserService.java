@@ -29,9 +29,9 @@ public class UserService {
 
     public User add(String name, Long groupId) {
         User user = new User();
-    	Group group = null;
-    	if(groupId != null){
-        	group = groupRepository.findOne(groupId);
+        Group group = null;
+        if (groupId != null) {
+            group = groupRepository.findOne(groupId);
         }
         user.setName(name);
         user.setGroup(group);
@@ -40,8 +40,8 @@ public class UserService {
 
     public User update(Long id, String name) {
         User user = userRepository.findOne(id);
-        if(name != null){
-        	user.setName(name);        	
+        if (name != null) {
+            user.setName(name);
         }
         return userRepository.save(user);
     }
