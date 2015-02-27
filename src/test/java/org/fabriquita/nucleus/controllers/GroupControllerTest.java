@@ -40,10 +40,6 @@ public class GroupControllerTest {
     public void allTest() {
         baseUrl = "http://localhost:" + port + "/group/";
 
-        // Clear all the data
-
-        repository.deleteAll();
-
         // Create a root group with PUT request
 
         Map<String, Object> map = new HashMap<>();
@@ -80,8 +76,7 @@ public class GroupControllerTest {
         restTemplate.delete(baseUrl + root.getId());
         Group deletedGroup = restTemplate.getForObject(baseUrl + root.getId(),
                 Group.class);
-        assertNull(deletedGroup);
-
+        assertEquals(deletedGroup.getArchived(), "true");
     }
 
 }

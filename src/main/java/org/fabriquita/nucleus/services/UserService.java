@@ -38,10 +38,17 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public User update(Long id, String name) {
+    public User update(Long id, String name, Long groupId) {
         User user = userRepository.findOne(id);
         if (name != null) {
             user.setName(name);
+        }
+        Group group = null;
+        if(groupId != null){
+            group = groupRepository.findOne(groupId);
+        }
+        if(group != null){
+            user.setGroup(group);
         }
         return userRepository.save(user);
     }

@@ -44,13 +44,9 @@ public class UserControllerTest {
     public void allTest() {
         baseUrl = "http://localhost:" + port + "/user/";
 
-        // Clear all the data
-
-        userRepository.deleteAll();
-
         // Create a root user with PUT request
 
-        Group rootGroup = groupService.add("Root", null, null, null);
+        Group rootGroup = groupService.add("Root", null, null);
 
         Map<String, Object> map = new HashMap<>();
         map.put("name", "Root");

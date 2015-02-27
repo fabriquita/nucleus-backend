@@ -24,6 +24,7 @@ public class Group {
     private Group parent;
 
     public Group() {
+        archived = "false";
     }
 
     public Long getId() {

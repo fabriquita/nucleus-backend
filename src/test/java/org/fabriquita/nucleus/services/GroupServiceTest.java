@@ -20,14 +20,14 @@ public class GroupServiceTest {
     public void allTest() {
         String name1 = "group1";
         String name2 = "group2";
-        Group group1 = groupService.add(name1, null, null, null);
+        Group group1 = groupService.add(name1, null, null);
         Group group1_2 = groupService.get(group1.getId());
         Assert.assertEquals(group1.getId(), group1_2.getId());
-        Group group2 = groupService.add(name2, group1.getId(), null, null);
+        Group group2 = groupService.add(name2, group1.getId(), null);
         Assert.assertEquals(group1.getId(), group2.getParent().getId());
         String newName2 = "newGroup2";
         group2 = groupService.update(group2.getId(), newName2, group2
-                .getParent().getId(), null, null);
+                .getParent().getId(), null);
         Assert.assertEquals(group2.getName(), newName2);
         groupService.delete(group2.getId());
         Group group2_2 = groupService.get(group2.getId());

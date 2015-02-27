@@ -35,14 +35,22 @@ public class GroupController {
 
     @RequestMapping(value = "/", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public Group add(@RequestBody Map<String, Object> data) {
-        String name = (String) data.get("name");
-        String description = (String) data.get("description");
-        String archived = (String) data.get("archived");
+        String name = null;
+        String description = null;
         Long parentId = null;
+        if (data.get("name") != null) {
+            name = (String) data.get("name");
+        } else {
+            throw new IllegalArgumentException(
+                    "'name' must not be null or empty");
+        }
+        if (data.get("description") != null) {
+            description = (String) data.get("description");
+        }
         if (data.get("parent_id") != null) {
             parentId = new Long(data.get("parent_id").toString());
         }
-        return groupService.add(name, parentId, description, archived);
+        return groupService.add(name, parentId, description);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -50,9 +58,8 @@ public class GroupController {
             @RequestBody Map<String, Object> data) {
         String name = null;
         String description = null;
-        String archived = null;
         Long parentId = null;
-        if ((String) data.get("parent_id") != null) {
+        if (data.get("parent_id") != null) {
             parentId = new Long(data.get("parent_id").toString());
         }
         if (data.get("name") != null) {
@@ -61,10 +68,7 @@ public class GroupController {
         if (data.get("description") != null) {
             description = (String) data.get("description");
         }
-        if (data.get("archived") != null) {
-            archived = (String) data.get("archived");
-        }
-        return groupService.update(id, name, parentId, description, archived);
+        return groupService.update(id, name, parentId, description);
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.DELETE)

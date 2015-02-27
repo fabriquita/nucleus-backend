@@ -23,8 +23,7 @@ public class GroupService {
         return groupRepository.findOne(id);
     }
 
-    public Group add(String name, Long parentId, String description,
-            String archived) {
+    public Group add(String name, Long parentId, String description) {
         Group group = new Group();
         Group parent = null;
         if (parentId != null) {
@@ -32,7 +31,6 @@ public class GroupService {
         }
         group.setName(name);
         group.setDescription(description);
-        group.setArchived(archived);
         if (parent == null) {
             group.setLevel(0L);
         } else {
@@ -42,35 +40,29 @@ public class GroupService {
         return groupRepository.save(group);
     }
 
-    public Group update(Long id, String name, Long parentId,
-            String description, String archived) {
+    public Group update(Long id, String name, Long parentId, String description) {
         Group group = groupRepository.findOne(id);
         Group parent = null;
         if (parentId != null) {
             parent = groupRepository.findOne(parentId);
         }
-        group.setName(name);
-        if (parent == null) {
-            group.setLevel(0L);
-        } else {
+        if (parent != null) {
             group.setLevel(parent.getLevel() + 1);
+            group.setParent(parent);
         }
-        group.setParent(parent);
         if (name != null) {
             group.setName(name);
         }
         if (description != null) {
             group.setDescription(description);
         }
-        if (archived != null) {
-            group.setArchived(archived);
-        }
         return groupRepository.save(group);
     }
 
     public void delete(Long id) {
         Group group = groupRepository.findOne(id);
-        groupRepository.delete(group);
+        group.setArchived("true");
+        groupRepository.save(group);
     }
 
 }
