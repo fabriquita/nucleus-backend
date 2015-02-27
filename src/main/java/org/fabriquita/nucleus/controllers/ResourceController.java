@@ -3,8 +3,8 @@ package org.fabriquita.nucleus.controllers;
 import java.util.List;
 import java.util.Map;
 
-import org.fabriquita.nucleus.models.User;
-import org.fabriquita.nucleus.services.UserService;
+import org.fabriquita.nucleus.models.Resource;
+import org.fabriquita.nucleus.services.ResourceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,64 +16,48 @@ import org.springframework.web.bind.annotation.RestController;
 import com.wordnik.swagger.annotations.Api;
 
 @RestController
-@RequestMapping(value = "/user")
+@RequestMapping(value = "/resource")
 @Api("User Rest Services")
-public class UserController {
+public class ResourceController {
 
     @Autowired
-    private UserService userService;
+    private ResourceService resourceService;
 
     @RequestMapping(value = "/", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<User> list() {
-        return userService.list();
+    public List<Resource> list() {
+        return resourceService.list();
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public User get(@PathVariable(value = "id") Long id) {
-        return userService.get(id);
+    public Resource get(@PathVariable(value = "id") Long id) {
+        return resourceService.get(id);
     }
 
     @RequestMapping(value = "/", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public User add(@RequestBody Map<String, Object> data) {
+    public Resource add(@RequestBody Map<String, Object> data) {
         String name = null;
-        Long groupId = null;
-        Long roleId = null;
-        if (data.get("name") != null) {
-            name = (String) data.get("name");
+        if (data.get("permissions") != null) {
+            name = (String) data.get("permissions");
         } else {
             throw new IllegalArgumentException(
-                    "'name' must not be null or empty");
+                    "'permissions' must not be null or empty");
         }
-        if (data.get("group_id") != null) {
-            groupId = new Long(data.get("group_id").toString());
-        }
-        if (data.get("role_id") != null){
-            roleId = new Long(data.get("role_id").toString());
-        }
-        return userService.add(name, groupId, roleId);
+        return resourceService.add(name);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public User update(@PathVariable(value = "id") Long id,
+    public Resource update(@PathVariable(value = "id") Long id,
             @RequestBody Map<String, Object> data) {
-        String name = null;
-        Long groupId = null;
-        Long roleId = null;
-        if (data.get("name") != null) {
-            name = (String) data.get("name");
+        String permissions = null;
+        if (data.get("permissions") != null) {
+            permissions = (String) data.get("permissions");
         }
-        if (data.get("group_id") != null) {
-            groupId = new Long(data.get("group_id").toString());
-        }
-        if (data.get("role_id") != null) {
-            roleId = new Long(data.get("role_id").toString());
-        }
-        return userService.update(id, name, groupId, roleId);
+        return resourceService.update(id, permissions);
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
     public void delete(@PathVariable(value = "id") Long id) {
-        userService.delete(id);
+        resourceService.delete(id);
     }
 
 }

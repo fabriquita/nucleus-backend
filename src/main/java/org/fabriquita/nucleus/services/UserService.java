@@ -3,8 +3,10 @@ package org.fabriquita.nucleus.services;
 import java.util.List;
 
 import org.fabriquita.nucleus.models.Group;
+import org.fabriquita.nucleus.models.Role;
 import org.fabriquita.nucleus.models.User;
 import org.fabriquita.nucleus.repositories.GroupRepository;
+import org.fabriquita.nucleus.repositories.RoleRepository;
 import org.fabriquita.nucleus.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,6 +20,8 @@ public class UserService {
     UserRepository userRepository;
     @Autowired
     GroupRepository groupRepository;
+    @Autowired
+    RoleRepository roleRepository;
 
     public List<User> list() {
         return Lists.newLinkedList(userRepository.findAll());
@@ -27,28 +31,40 @@ public class UserService {
         return userRepository.findOne(id);
     }
 
-    public User add(String name, Long groupId) {
+    public User add(String name, Long groupId, Long roleId) {
         User user = new User();
         Group group = null;
+        Role role = null;
         if (groupId != null) {
             group = groupRepository.findOne(groupId);
         }
+        if (roleId != null) {
+            role = roleRepository.findOne(roleId);
+        }
         user.setName(name);
         user.setGroup(group);
+        user.setRole(role);
         return userRepository.save(user);
     }
 
-    public User update(Long id, String name, Long groupId) {
+    public User update(Long id, String name, Long groupId, Long roleId) {
         User user = userRepository.findOne(id);
+        Group group = null;
+        Role role = null;
         if (name != null) {
             user.setName(name);
         }
-        Group group = null;
         if(groupId != null){
             group = groupRepository.findOne(groupId);
         }
         if(group != null){
             user.setGroup(group);
+        }
+        if (roleId != null) {
+            role = roleRepository.findOne(roleId);
+        }
+        if (role != null) {
+            user.setRole(role);
         }
         return userRepository.save(user);
     }

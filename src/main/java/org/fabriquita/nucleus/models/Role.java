@@ -1,41 +1,31 @@
 package org.fabriquita.nucleus.models;
 
+import java.util.List;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "user0")
-public class User {
+@Table(name = "role0")
+public class Role {
 
     @Id
+    @Column(name = "role_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @ManyToMany
+    @JoinTable(name = "role_resource", joinColumns = { @JoinColumn(name = "role_id") }, inverseJoinColumns = { @JoinColumn(name = "resource_id") })
+    private List<Resource> resources;
+
     private String name;
-
-    @ManyToOne
-    @JoinColumn(name = "group_id", nullable = true)
-    private Group group;
-
-    @ManyToOne
-    @JoinColumn(name = "role_id", nullable = true)
-    private Role role;
-
-    public User() {
-    }
-
-    public Role getRole() {
-        return role;
-    }
-
-    public void setRole(Role role) {
-        this.role = role;
-    }
 
     public Long getId() {
         return id;
@@ -45,20 +35,16 @@ public class User {
         this.id = id;
     }
 
+    public List<Resource> getResources() {
+        return resources;
+    }
+
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Group getGroup() {
-        return group;
-    }
-
-    public void setGroup(Group group) {
-        this.group = group;
     }
 
 }

@@ -19,7 +19,7 @@ public class UserServiceTest {
     @Test
     public void allTest() {
         String name1 = "user1";
-        User user1 = userService.add(name1, null);
+        User user1 = userService.add(name1, null, null);
         User user2 = userService.get(user1.getId());
         Assert.assertEquals(user1.getId(), user2.getId());
     }
