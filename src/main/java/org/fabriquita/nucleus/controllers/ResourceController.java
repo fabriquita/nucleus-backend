@@ -36,23 +36,28 @@ public class ResourceController {
     @RequestMapping(value = "/", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public Resource add(@RequestBody Map<String, Object> data) {
         String name = null;
-        if (data.get("permissions") != null) {
-            name = (String) data.get("permissions");
-        } else {
-            throw new IllegalArgumentException(
-                    "'permissions' must not be null or empty");
+        Long groupId = null;
+        if (data.get("name") != null) {
+            name = (String) data.get("name");
         }
-        return resourceService.add(name);
+        if (data.get("group_id") != null) {
+            groupId = new Long(data.get("group_id").toString());
+        }
+        return resourceService.add(name, groupId);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public Resource update(@PathVariable(value = "id") Long id,
             @RequestBody Map<String, Object> data) {
-        String permissions = null;
-        if (data.get("permissions") != null) {
-            permissions = (String) data.get("permissions");
+        String name = null;
+        Long groupId = null;
+        if (data.get("name") != null) {
+            name = (String) data.get("name");
         }
-        return resourceService.update(id, permissions);
+        if (data.get("group_id") != null) {
+            groupId = new Long(data.get("group_id").toString());
+        }
+        return resourceService.update(id, name, groupId);
     }
 
     @RequestMapping(value = "{id}", method = RequestMethod.DELETE)

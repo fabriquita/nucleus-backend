@@ -2,11 +2,10 @@ package org.fabriquita.nucleus.repositories;
 
 import javax.transaction.Transactional;
 
-
-import org.fabriquita.nucleus.models.Role;
+import org.fabriquita.nucleus.models.RoleResource;
 import org.springframework.data.repository.CrudRepository;
 
 @Transactional
-public interface RoleRepository extends CrudRepository<Role, Long> {
-    public Role findByName(String name);
+public interface RoleResourceRepository extends CrudRepository<RoleResource, Long> {
+
 }

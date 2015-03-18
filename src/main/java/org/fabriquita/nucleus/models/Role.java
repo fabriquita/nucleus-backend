@@ -4,28 +4,37 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "role0")
 public class Role {
 
     @Id
+    @GeneratedValue
     @Column(name = "role_id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    Long id;
 
-    @ManyToMany
-    @JoinTable(name = "role_resource", joinColumns = { @JoinColumn(name = "role_id") }, inverseJoinColumns = { @JoinColumn(name = "resource_id") })
-    private List<Resource> resources;
+    String name;
 
-    private String name;
+    @ManyToOne
+    @JoinColumn(name = "group_id")
+    Group group;
+
+    @JsonIgnore
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "role")
+    private List<RoleResource> roleResources;
+
+    public Role() {
+    }
 
     public Long getId() {
         return id;
@@ -35,16 +44,28 @@ public class Role {
         this.id = id;
     }
 
-    public List<Resource> getResources() {
-        return resources;
-    }
-
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Group getGroup() {
+        return group;
+    }
+
+    public void setGroup(Group group) {
+        this.group = group;
+    }
+
+    public List<RoleResource> getRoleResources() {
+        return roleResources;
+    }
+
+    public void setRoleResources(List<RoleResource> roleResources) {
+        this.roleResources = roleResources;
     }
 
 }

@@ -7,5 +7,5 @@ import org.springframework.data.repository.CrudRepository;
 
 @Transactional
 public interface ResourceRepository extends CrudRepository<Resource, Long> {
-    public Resource findByPermissions(String permissions);
+   
 }
