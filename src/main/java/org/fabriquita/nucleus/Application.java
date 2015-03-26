@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Import;
 @Configuration
 @ComponentScan
 @EnableAutoConfiguration
-@Import({SwaggerConfig.class, WebJarsConfig.class})
+@Import({SwaggerConfig.class, WebJarsConfig.class, ShiroWebConfig.class})
 public class Application {
 	public static void main(String[] args) {
 		SpringApplication.run(Application.class, args);

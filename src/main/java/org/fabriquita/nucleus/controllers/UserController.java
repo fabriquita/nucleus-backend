@@ -36,6 +36,7 @@ public class UserController {
     @RequestMapping(value = "/", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public User add(@RequestBody Map<String, Object> data) {
         String name = null;
+        String password = null;
         Long groupId = null;
         Long roleId = null;
         if (data.get("name") != null) {
@@ -44,13 +45,19 @@ public class UserController {
             throw new IllegalArgumentException(
                     "'name' must not be null or empty");
         }
+        if (data.get("password") != null) {
+            name = (String) data.get("password");
+        } else {
+            throw new IllegalArgumentException(
+                    "'password' must not be null or empty");
+        }
         if (data.get("group_id") != null) {
             groupId = new Long(data.get("group_id").toString());
         }
         if (data.get("role_id") != null){
             roleId = new Long(data.get("role_id").toString());
         }
-        return userService.add(name, groupId, roleId);
+        return userService.add(name, password, groupId, roleId);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)

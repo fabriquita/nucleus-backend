@@ -24,13 +24,29 @@ public class RoleResourceService {
     
     @Autowired
     RoleResourceRepository roleResourceRepository;
-    
+
     public List<RoleResource> list() {
         return Lists.newLinkedList(roleResourceRepository.findAll());
     }
 
     public RoleResource get(Long id) {
         return roleResourceRepository.findOne(id);
+    }
+
+    public RoleResource add(Long roleId, Long resourceId, String permissions) {
+        RoleResource roleResource = new RoleResource();
+        Role role = roleRepository.findOne(roleId);
+        Resource resource = resourceRepository.findOne(resourceId);
+        roleResource.setRole(role);
+        roleResource.setResource(resource);
+        if (permissions != null) {
+            roleResource.setCreate(permissions.contains("c"));
+            roleResource.setRead(permissions.contains("r"));
+            roleResource.setUpdate(permissions.contains("u"));
+            roleResource.setDelete(permissions.contains("d"));
+            roleResource.setExecute(permissions.contains("x"));
+        }
+        return roleResourceRepository.save(roleResource);
     }
 
     public RoleResource update(Long id, String permissions) {
@@ -40,7 +56,7 @@ public class RoleResourceService {
             roleResource.setRead(permissions.contains("r"));
             roleResource.setUpdate(permissions.contains("u"));
             roleResource.setDelete(permissions.contains("d"));
-            roleResource.setExecute(permissions.contains("e"));
+            roleResource.setExecute(permissions.contains("x"));
         }
         return roleResourceRepository.save(roleResource);
     }

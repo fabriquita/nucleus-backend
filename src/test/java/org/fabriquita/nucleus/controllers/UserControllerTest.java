@@ -1,6 +1,7 @@
 package org.fabriquita.nucleus.controllers;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -11,7 +12,7 @@ import org.fabriquita.nucleus.models.Group;
 import org.fabriquita.nucleus.models.User;
 import org.fabriquita.nucleus.repositories.UserRepository;
 import org.fabriquita.nucleus.services.GroupService;
-import org.junit.*;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

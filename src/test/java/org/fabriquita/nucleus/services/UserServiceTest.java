@@ -19,7 +19,8 @@ public class UserServiceTest {
     @Test
     public void allTest() {
         String name1 = "user1";
-        User user1 = userService.add(name1, null, null);
+        String password1 = "none";
+        User user1 = userService.add(name1, password1, null, null);
         User user2 = userService.get(user1.getId());
         Assert.assertEquals(user1.getId(), user2.getId());
     }
