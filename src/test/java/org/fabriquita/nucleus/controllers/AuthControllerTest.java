@@ -76,6 +76,10 @@ public class AuthControllerTest {
         ResponseEntity<String> response = restTemplate.postForEntity(baseUrl + "login", map, String.class);
         System.out.println(response);
 
+        Map<String, Object> map2 = new HashMap<>();
+        response = restTemplate.postForEntity(baseUrl + "logout", map2, String.class);
+        System.out.println(response);
+
     }
 
 }
