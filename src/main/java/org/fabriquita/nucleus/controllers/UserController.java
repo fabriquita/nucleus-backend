@@ -3,6 +3,8 @@ package org.fabriquita.nucleus.controllers;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.fabriquita.nucleus.models.User;
 import org.fabriquita.nucleus.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +25,8 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @RequiresAuthentication
+    @RequiresPermissions("user:r")
     @RequestMapping(value = "/", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public List<User> list() {
         return userService.list();
