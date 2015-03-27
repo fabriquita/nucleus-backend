@@ -32,11 +32,15 @@ public class UserController {
         return userService.list();
     }
 
+    @RequiresAuthentication
+    @RequiresPermissions("user:r")
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public User get(@PathVariable(value = "id") Long id) {
         return userService.get(id);
     }
 
+    @RequiresAuthentication
+    @RequiresPermissions("user:c")
     @RequestMapping(value = "/", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public User add(@RequestBody Map<String, Object> data) {
         String name = null;
@@ -64,6 +68,8 @@ public class UserController {
         return userService.add(name, password, groupId, roleId);
     }
 
+    @RequiresAuthentication
+    @RequiresPermissions("user:u")
     @RequestMapping(value = "/{id}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public User update(@PathVariable(value = "id") Long id,
             @RequestBody Map<String, Object> data) {
@@ -82,6 +88,8 @@ public class UserController {
         return userService.update(id, name, groupId, roleId);
     }
 
+    @RequiresAuthentication
+    @RequiresPermissions("user:d")
     @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
     public void delete(@PathVariable(value = "id") Long id) {
         userService.delete(id);
