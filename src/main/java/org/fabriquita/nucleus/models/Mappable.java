@@ -4,6 +4,7 @@ import java.io.PrintStream;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -17,7 +18,9 @@ public abstract class Mappable {
         List<String> list = new LinkedList<>();
         Class<?> c = this.getClass();
         for (Field field : c.getDeclaredFields()) {
-            list.add(field.getName());
+            if (!Modifier.isStatic(field.getModifiers())) {
+                list.add(field.getName());
+            }
         }
         String[] result = new String[list.size()];
         list.toArray(result);

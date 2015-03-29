@@ -1,6 +1,10 @@
 package org.fabriquita.nucleus;
 
 import org.fabriquita.nucleus.popdb.GroupPopDB;
+import org.fabriquita.nucleus.popdb.ResourcePopDB;
+import org.fabriquita.nucleus.popdb.RolePopDB;
+import org.fabriquita.nucleus.popdb.RoleResourcePopDB;
+import org.fabriquita.nucleus.popdb.UserPopDB;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -14,6 +18,18 @@ public class PopDB implements CommandLineRunner {
     @Autowired
     GroupPopDB groupPopDB;
 
+    @Autowired
+    RolePopDB rolePopDB;
+
+    @Autowired
+    ResourcePopDB resourcePopDB;
+
+    @Autowired
+    RoleResourcePopDB roleResourcePopDB;
+
+    @Autowired
+    UserPopDB userPopDB;
+
     public static boolean isPopDBExecuted = false;
 
     public static void main(String[] args) {
@@ -24,6 +40,10 @@ public class PopDB implements CommandLineRunner {
     public void run(String... args) {
         if (isPopDBExecuted) {
             groupPopDB.popDB();
+            rolePopDB.popDB();
+            resourcePopDB.popDB();
+            roleResourcePopDB.popDB();
+            userPopDB.popDB();
             System.exit(0);
         }
     }
