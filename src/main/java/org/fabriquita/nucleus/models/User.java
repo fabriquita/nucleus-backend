@@ -10,7 +10,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "user0")
-public class User {
+public class User extends Mappable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -68,6 +68,16 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    @Override
+    public String[] mappableFields() {
+        return super.mappableFields();
+    }
+
+    @Override
+    public Object mappableId() {
+        return this.id;
     }
 
 }

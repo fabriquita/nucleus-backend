@@ -13,7 +13,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "role_resource0")
-public class RoleResource {
+public class RoleResource extends Mappable {
 
     public static final String CREATE  = "c";
     public static final String READ    = "r";
@@ -137,4 +137,15 @@ public class RoleResource {
         }
         return permissions;
     }
+
+    @Override
+    public String[] mappableFields() {
+        return super.mappableFields();
+    }
+
+    @Override
+    public Object mappableId() {
+        return this.id;
+    }
+
 }

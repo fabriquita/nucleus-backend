@@ -16,7 +16,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "resource0")
-public class Resource {
+public class Resource extends Mappable {
 
     @Id
     @GeneratedValue
@@ -66,6 +66,16 @@ public class Resource {
 
     public void setRoleResources(List<RoleResource> roleResources) {
         this.roleResources = roleResources;
+    }
+
+    @Override
+    public String[] mappableFields() {
+        return super.mappableFields();
+    }
+
+    @Override
+    public Object mappableId() {
+        return this.id;
     }
 
 }

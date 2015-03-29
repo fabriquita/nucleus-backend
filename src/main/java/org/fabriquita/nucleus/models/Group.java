@@ -9,7 +9,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "group0")
-public class Group {
+public class Group extends Mappable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -73,6 +73,16 @@ public class Group {
 
     public void setArchived(String archived) {
         this.archived = archived;
+    }
+
+    @Override
+    public String[] mappableFields() {
+        return super.mappableFields();
+    }
+
+    @Override
+    public Object mappableId() {
+        return this.id;
     }
 
 }
