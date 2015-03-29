@@ -38,3 +38,14 @@ dependencies {
     compile('org.apache.shiro:shiro-spring:1.2.3')
     testCompile("junit:junit:4.11")
 }
+
+springBoot {
+    mainClass = 'org.fabriquita.nucleus.Application'
+}
+
+task popdbTask(type: GradleBuild) {
+    if (project.hasProperty("popdb")) {
+        springBoot.mainClass = 'org.fabriquita.nucleus.PopDB'
+        tasks = ['bootRun']
+    }
+}
