@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.wordnik.swagger.annotations.Api;
 
 @RestController
-@RequestMapping(value = "/")
-@Api("User Rest Services")
+@RequestMapping(value = "/auth")
+@Api("Login and Logout Rest Services")
 public class AuthController {
 
     @Autowired

@@ -16,7 +16,7 @@ public class SwaggerConfig extends SpringBootSwaggerConfig {
 
     @Override
     protected List<String> getIncludePatterns() {
-        return Lists.newArrayList("/group.*","/user.*","/role.*","/resource.*");
+        return Lists.newArrayList("/group.*","/user.*","/role.*","/resource.*","/auth.*");
     }
 
     @Override
