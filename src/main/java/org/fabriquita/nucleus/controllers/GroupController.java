@@ -3,6 +3,8 @@ package org.fabriquita.nucleus.controllers;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.fabriquita.nucleus.models.Group;
 import org.fabriquita.nucleus.services.GroupService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,16 +25,22 @@ public class GroupController {
     @Autowired
     private GroupService groupService;
 
+    @RequiresAuthentication
+    @RequiresPermissions("group:r")
     @RequestMapping(value = "/", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Group> list() {
         return groupService.list();
     }
 
+    @RequiresAuthentication
+    @RequiresPermissions("group:r")
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public Group get(@PathVariable(value = "id") Long id) {
         return groupService.get(id);
     }
 
+    @RequiresAuthentication
+    @RequiresPermissions("group:c")
     @RequestMapping(value = "/", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public Group add(@RequestBody Map<String, Object> data) {
         String name = null;
@@ -53,6 +61,8 @@ public class GroupController {
         return groupService.add(name, parentId, description);
     }
 
+    @RequiresAuthentication
+    @RequiresPermissions("group:u")
     @RequestMapping(value = "/{id}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public Group update(@PathVariable(value = "id") Long id,
             @RequestBody Map<String, Object> data) {
@@ -71,6 +81,8 @@ public class GroupController {
         return groupService.update(id, name, parentId, description);
     }
 
+    @RequiresAuthentication
+    @RequiresPermissions("group:d")
     @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
     // @ResponseStatus(value = HttpStatus.NO_CONTENT)
     public void delete(@PathVariable(value = "id") Long id) {
