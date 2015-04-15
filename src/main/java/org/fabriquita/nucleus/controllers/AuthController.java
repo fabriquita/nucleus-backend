@@ -6,6 +6,8 @@ import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.fabriquita.nucleus.services.UserService;
+import org.fabriquita.nucleus.shiro.NucleusToken;
+import org.fabriquita.nucleus.shiro.ShiroSecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -27,10 +29,11 @@ public class AuthController {
     public Object login(@RequestBody Map<String, Object> data) {
         String username = (String)data.get("user");
         String password = (String)data.get("password");
-        Subject currentUser = SecurityUtils.getSubject();
         UsernamePasswordToken token = new UsernamePasswordToken(username, password);
-        currentUser.login(token);
-        return token;
+        ShiroSecurityUtils.login(token);
+        NucleusToken nucleusToken = ShiroSecurityUtils.generateToken(username, password, null);
+        ShiroSecurityUtils.addToken(username, nucleusToken);
+        return nucleusToken;
     }
 
     @RequestMapping(value = "/logout", method = RequestMethod.POST)

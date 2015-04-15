@@ -37,6 +37,7 @@ public class ShiroWebConfig extends WebMvcConfigurerAdapter {
         filterChainDefinitionMapping.put("/", "anon");
         filterChainDefinitionMapping.put("/home", "authc,roles[guest]");
         filterChainDefinitionMapping.put("/admin", "authc,roles[admin]");
+        filterChainDefinitionMapping.put("/**", "securityFilter");
         shiroFilter.setFilterChainDefinitionMap(filterChainDefinitionMapping);
         shiroFilter.setSecurityManager(securityManager());
         Map<String, Filter> filters = new HashMap<String, Filter>();
@@ -45,6 +46,7 @@ public class ShiroWebConfig extends WebMvcConfigurerAdapter {
         filters.put("logout", new LogoutFilter());
         filters.put("roles", new RolesAuthorizationFilter());
         filters.put("user", new UserFilter());
+        filters.put("securityFilter", new ShiroSecurityFilter());
         shiroFilter.setFilters(filters);
         System.out.println(shiroFilter.getFilters().size());
         return shiroFilter;
