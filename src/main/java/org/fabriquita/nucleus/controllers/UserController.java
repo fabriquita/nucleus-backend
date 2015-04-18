@@ -54,7 +54,7 @@ public class UserController {
                     "'name' must not be null or empty");
         }
         if (data.get("password") != null) {
-            name = (String) data.get("password");
+            password = (String) data.get("password");
         } else {
             throw new IllegalArgumentException(
                     "'password' must not be null or empty");
