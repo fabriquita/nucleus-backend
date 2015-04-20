@@ -44,14 +44,30 @@ public class UserController {
     @RequestMapping(value = "/", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public User add(@RequestBody Map<String, Object> data) {
         String name = null;
+        String lastName = null;
+        String userName = null;
         String password = null;
         Long groupId = null;
         Long roleId = null;
+        String email = null;
+        String archived = null;
         if (data.get("name") != null) {
             name = (String) data.get("name");
         } else {
             throw new IllegalArgumentException(
                     "'name' must not be null or empty");
+        }
+        if (data.get("lastName") != null) {
+            lastName = (String) data.get("lastName");
+        } else {
+            throw new IllegalArgumentException(
+                    "'lastName' must not be null or empty");
+        }
+        if (data.get("userName") != null) {
+            userName = (String) data.get("userName");
+        } else {
+            throw new IllegalArgumentException(
+                    "'userName' must not be null or empty");
         }
         if (data.get("password") != null) {
             password = (String) data.get("password");
@@ -65,7 +81,18 @@ public class UserController {
         if (data.get("role_id") != null){
             roleId = new Long(data.get("role_id").toString());
         }
-        return userService.add(name, password, groupId, roleId);
+        if (data.get("email") != null) {
+            email = (String) data.get("email");
+        } else {
+            throw new IllegalArgumentException(
+                    "'email' must not be null or empty");
+        }
+        if (data.get("archived") != null) {
+            archived = (String) data.get("archived");
+        } else {
+            archived = "false";
+        }
+        return userService.add(name, lastName, userName, password, groupId, roleId, email, archived);
     }
 
     @RequiresAuthentication

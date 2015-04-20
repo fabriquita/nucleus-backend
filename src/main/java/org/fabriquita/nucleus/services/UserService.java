@@ -31,7 +31,7 @@ public class UserService {
         return userRepository.findOne(id);
     }
 
-    public User add(String name, String password, Long groupId, Long roleId) {
+    public User add(String name, String lastName, String userName, String password, Long groupId, Long roleId, String email, String archived) {
         User user = new User();
         Group group = null;
         Role role = null;
@@ -42,9 +42,13 @@ public class UserService {
             role = roleRepository.findOne(roleId);
         }
         user.setName(name);
+        user.setLastName(lastName);
+        user.setUserName(userName);
         user.setPassword(password);
         user.setGroup(group);
         user.setRole(role);
+        user.setEmail(email);
+        user.setArchived(archived);
         return userRepository.save(user);
     }
 

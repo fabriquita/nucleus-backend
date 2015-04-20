@@ -17,7 +17,11 @@ public class User extends Mappable {
     private Long id;
 
     private String name;
+    private String lastName;
+    private String userName;
     private String password;
+    private String email;
+    private String archived;
 
     @ManyToOne
     @JoinColumn(name = "group_id", nullable = true)
@@ -54,6 +58,22 @@ public class User extends Mappable {
         this.name = name;
     }
 
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
     public Group getGroup() {
         return group;
     }
@@ -68,6 +88,22 @@ public class User extends Mappable {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getArchived() {
+        return archived;
+    }
+
+    public void setArchived(String archived) {
+        this.archived = archived;
     }
 
     @Override
