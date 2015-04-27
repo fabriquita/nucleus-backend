@@ -5,6 +5,8 @@ import java.util.List;
 import org.fabriquita.nucleus.models.Group;
 import org.fabriquita.nucleus.repositories.GroupRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com.google.common.collect.Lists;
@@ -63,6 +65,11 @@ public class GroupService {
         Group group = groupRepository.findOne(id);
         group.setArchived(true);
         groupRepository.save(group);
+    }
+
+    public Page<Group> list(Integer page, Integer size) {
+        PageRequest pageRequest = new PageRequest(page, size);
+        return groupRepository.findAll(pageRequest);
     }
 
 }
