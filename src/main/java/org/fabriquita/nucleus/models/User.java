@@ -1,5 +1,7 @@
 package org.fabriquita.nucleus.models;
 
+import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -21,7 +23,10 @@ public class User extends Mappable {
     private String userName;
     private String password;
     private String email;
-    private String archived;
+
+    private Boolean archived;
+
+    private Date lastLogin;
 
     @ManyToOne
     @JoinColumn(name = "group_id", nullable = true)
@@ -32,6 +37,7 @@ public class User extends Mappable {
     private Role role;
 
     public User() {
+        archived = false;
     }
 
     public Role getRole() {
@@ -98,11 +104,11 @@ public class User extends Mappable {
         this.email = email;
     }
 
-    public String getArchived() {
+    public Boolean getArchived() {
         return archived;
     }
 
-    public void setArchived(String archived) {
+    public void setArchived(Boolean archived) {
         this.archived = archived;
     }
 
@@ -114,6 +120,14 @@ public class User extends Mappable {
     @Override
     public Object mappableId() {
         return this.id;
+    }
+
+    public Date getLastLogin() {
+        return lastLogin;
+    }
+
+    public void setLastLogin() {
+        this.lastLogin = new Date();
     }
 
 }

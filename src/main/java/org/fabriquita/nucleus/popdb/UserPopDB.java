@@ -36,8 +36,8 @@ public class UserPopDB {
         Group group2 = groupService.list().get(1);
         Role role1 = roleService.list().get(0);
         Role role2 = roleService.list().get(1);
-        User user1 = userService.add(name1, lastName1, userName1, userPassword1, group1.getId(), role1.getId(), email1, "false");
-        User user2 = userService.add(name2, lastName2, userName2, userPassword2, group2.getId(), role2.getId(), email2, "false");
+        User user1 = userService.add(name1, lastName1, userName1, userPassword1, group1.getId(), role1.getId(), email1);
+        User user2 = userService.add(name2, lastName2, userName2, userPassword2, group2.getId(), role2.getId(), email2);
         System.out.println(user1.toMap());
         System.out.println(user2.toMap());
     }
