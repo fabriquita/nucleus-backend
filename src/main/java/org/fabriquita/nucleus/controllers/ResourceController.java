@@ -1,18 +1,20 @@
 package org.fabriquita.nucleus.controllers;
 
-import java.util.List;
 import java.util.Map;
 
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.fabriquita.nucleus.NucleusConstants;
 import org.fabriquita.nucleus.models.Resource;
 import org.fabriquita.nucleus.services.ResourceService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.wordnik.swagger.annotations.Api;
@@ -28,8 +30,14 @@ public class ResourceController {
     @RequiresAuthentication
     @RequiresPermissions("resource:r")
     @RequestMapping(value = "/", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Resource> list() {
-        return resourceService.list();
+    public Page<Resource> list(@RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "size", required = false) Integer size) {
+        if (page == null) {
+            page = 0;
+        }
+        if (size == null) {
+            size = NucleusConstants.PAGE_SIZE;
+        }
+        return resourceService.list(page, size);
     }
 
     @RequiresAuthentication

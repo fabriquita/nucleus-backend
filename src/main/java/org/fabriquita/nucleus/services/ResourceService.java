@@ -7,6 +7,8 @@ import org.fabriquita.nucleus.models.Resource;
 import org.fabriquita.nucleus.repositories.GroupRepository;
 import org.fabriquita.nucleus.repositories.ResourceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com.google.common.collect.Lists;
@@ -57,6 +59,11 @@ public class ResourceService {
     public void delete(Long id) {
         Resource resource = resourceRepository.findOne(id);
         resourceRepository.delete(resource);
+    }
+
+    public Page<Resource> list(Integer page, Integer size) {
+        PageRequest pageRequest = new PageRequest(page, size);
+        return resourceRepository.findAll(pageRequest);
     }
 
 }

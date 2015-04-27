@@ -11,6 +11,8 @@ import org.fabriquita.nucleus.repositories.ResourceRepository;
 import org.fabriquita.nucleus.repositories.RoleRepository;
 import org.fabriquita.nucleus.repositories.RoleResourceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com.google.common.collect.Lists;
@@ -79,6 +81,11 @@ public class RoleService {
     public void delete(Long id) {
         Role role = roleRepository.findOne(id);
         roleRepository.delete(role);
+    }
+
+    public Page<Role> list(Integer page, Integer size) {
+        PageRequest pageRequest = new PageRequest(page, size);
+        return roleRepository.findAll(pageRequest);
     }
 
 }

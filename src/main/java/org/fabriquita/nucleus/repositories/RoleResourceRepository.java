@@ -3,9 +3,9 @@ package org.fabriquita.nucleus.repositories;
 import javax.transaction.Transactional;
 
 import org.fabriquita.nucleus.models.RoleResource;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.PagingAndSortingRepository;
 
 @Transactional
-public interface RoleResourceRepository extends CrudRepository<RoleResource, Long> {
+public interface RoleResourceRepository extends PagingAndSortingRepository<RoleResource, Long> {
 
 }
