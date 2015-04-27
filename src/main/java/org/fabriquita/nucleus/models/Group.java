@@ -16,15 +16,16 @@ public class Group extends Mappable {
     private Long id;
 
     private String description;
-    private String archived;
     private String name;
     private Long level;
+
+    private Boolean archived;
 
     @ManyToOne
     private Group parent;
 
     public Group() {
-        archived = "false";
+        archived = false;
     }
 
     public Long getId() {
@@ -67,11 +68,11 @@ public class Group extends Mappable {
         this.description = description;
     }
 
-    public String getArchived() {
+    public Boolean getArchived() {
         return archived;
     }
 
-    public void setArchived(String archived) {
+    public void setArchived(Boolean archived) {
         this.archived = archived;
     }
 

@@ -61,7 +61,7 @@ public class GroupService {
 
     public void delete(Long id) {
         Group group = groupRepository.findOne(id);
-        group.setArchived("true");
+        group.setArchived(true);
         groupRepository.save(group);
     }
 
