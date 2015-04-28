@@ -58,6 +58,7 @@ public class UserController {
         Long groupId = null;
         Long roleId = null;
         String email = null;
+        Boolean archived = null;
         if (data.get("name") != null) {
             name = (String) data.get("name");
         } else {
@@ -94,7 +95,10 @@ public class UserController {
             throw new IllegalArgumentException(
                     "'email' must not be null or empty");
         }
-        return userService.add(name, lastName, userName, password, groupId, roleId, email);
+        if (data.get("archived") != null){
+            archived = Boolean.valueOf(data.get("archived").toString());
+        }
+        return userService.add(name, lastName, userName, password, groupId, roleId, email, archived);
     }
 
     @RequiresAuthentication
