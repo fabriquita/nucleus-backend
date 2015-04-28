@@ -103,10 +103,26 @@ public class UserController {
     public User update(@PathVariable(value = "id") Long id,
             @RequestBody Map<String, Object> data) {
         String name = null;
+        String lastName = null;
+        String userName = null;
+        String password = null;
+        String email = null;
         Long groupId = null;
         Long roleId = null;
         if (data.get("name") != null) {
             name = (String) data.get("name");
+        }
+        if (data.get("lastName") != null) {
+            lastName = (String) data.get("lastName");
+        }
+        if (data.get("userName") != null) {
+            userName = (String) data.get("userName");
+        }
+        if (data.get("password") != null) {
+            password = (String) data.get("password");
+        }
+        if (data.get("email") != null) {
+            email = (String) data.get("email");
         }
         if (data.get("group_id") != null) {
             groupId = new Long(data.get("group_id").toString());
@@ -114,7 +130,7 @@ public class UserController {
         if (data.get("role_id") != null) {
             roleId = new Long(data.get("role_id").toString());
         }
-        return userService.update(id, name, groupId, roleId);
+        return userService.update(id, name, lastName, userName, password, email, groupId, roleId);
     }
 
     @RequiresAuthentication

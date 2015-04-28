@@ -53,12 +53,24 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public User update(Long id, String name, Long groupId, Long roleId) {
+    public User update(Long id, String name, String lastName, String userName, String password, String email, Long groupId, Long roleId) {
         User user = userRepository.findOne(id);
         Group group = null;
         Role role = null;
         if (name != null) {
             user.setName(name);
+        }
+        if (lastName != null) {
+            user.setLastName(lastName);
+        }
+        if (userName != null) {
+            user.setUserName(userName);
+        }
+        if (password != null) {
+            user.setPassword(password);
+        }
+        if (email != null) {
+            user.setEmail(email);
         }
         if(groupId != null){
             group = groupRepository.findOne(groupId);
