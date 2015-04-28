@@ -54,7 +54,7 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public User update(Long id, String name, String lastName, String userName, String password, String email, Long groupId, Long roleId) {
+    public User update(Long id, String name, String lastName, String userName, String password, String email, Long groupId, Long roleId, Boolean archived) {
         User user = userRepository.findOne(id);
         Group group = null;
         Role role = null;
@@ -84,6 +84,9 @@ public class UserService {
         }
         if (role != null) {
             user.setRole(role);
+        }
+        if (archived != null) {
+          user.setArchived(archived);
         }
         return userRepository.save(user);
     }
