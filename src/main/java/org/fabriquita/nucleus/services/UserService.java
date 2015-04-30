@@ -98,8 +98,11 @@ public class UserService {
     }
 
     public User getLogin(String name, String password) {
-        User user = userRepository.findByNameAndPassword(name, password);
-        if(user != null) {
+        User user = userRepository.findByUserNameAndPassword(name, password);
+        if(user == null) {
+            user = userRepository.findByEmailAndPassword(name, password);
+        }
+        if (user != null) {
             user.setLastLogin();
             userRepository.save(user);
         }

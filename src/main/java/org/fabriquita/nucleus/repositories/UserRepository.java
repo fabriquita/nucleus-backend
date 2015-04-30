@@ -8,5 +8,6 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 @Transactional
 public interface UserRepository extends PagingAndSortingRepository<User, Long> {
     public User findByName(String name);
-    public User findByNameAndPassword(String name, String password);
+    public User findByUserNameAndPassword(String userName, String password);
+    public User findByEmailAndPassword(String email, String password);
 }
