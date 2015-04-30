@@ -31,8 +31,8 @@ public class ShiroSecurityUtils {
 
     public static NucleusToken generateToken(String user, String password, String host) {
         NucleusToken token = new NucleusToken(user, password, host);
-        token.setCredentials(Base64.encodeToString(user.getBytes()));
-        //TODO grisaf generate real credentials
+        String credentials = user + System.currentTimeMillis();
+        token.setCredentials(Base64.encodeToString(credentials.getBytes()));
         return token;
     }
 
