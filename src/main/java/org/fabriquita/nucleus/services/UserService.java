@@ -2,6 +2,7 @@ package org.fabriquita.nucleus.services;
 
 import java.util.List;
 
+import org.apache.shiro.crypto.hash.Sha256Hash;
 import org.fabriquita.nucleus.models.Group;
 import org.fabriquita.nucleus.models.Role;
 import org.fabriquita.nucleus.models.User;
@@ -43,10 +44,11 @@ public class UserService {
         if (roleId != null) {
             role = roleRepository.findOne(roleId);
         }
+        String hashedPassword = new Sha256Hash(password).toString();
         user.setName(name);
         user.setLastName(lastName);
         user.setUserName(userName);
-        user.setPassword(password);
+        user.setPassword(hashedPassword);
         user.setGroup(group);
         user.setRole(role);
         user.setEmail(email);
@@ -68,7 +70,8 @@ public class UserService {
             user.setUserName(userName);
         }
         if (password != null) {
-            user.setPassword(password);
+            String hashedPassword = new Sha256Hash(password).toString();
+            user.setPassword(hashedPassword);
         }
         if (email != null) {
             user.setEmail(email);

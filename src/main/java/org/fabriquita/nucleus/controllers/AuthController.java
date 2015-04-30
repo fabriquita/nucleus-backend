@@ -4,6 +4,7 @@ import java.util.Map;
 
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.crypto.hash.Sha256Hash;
 import org.apache.shiro.subject.Subject;
 import org.fabriquita.nucleus.services.UserService;
 import org.fabriquita.nucleus.shiro.NucleusToken;
@@ -29,9 +30,10 @@ public class AuthController {
     public Object login(@RequestBody Map<String, Object> data) {
         String username = (String)data.get("user");
         String password = (String)data.get("password");
-        UsernamePasswordToken token = new UsernamePasswordToken(username, password);
+        String hashedPassword = new Sha256Hash(password).toString();
+        UsernamePasswordToken token = new UsernamePasswordToken(username, hashedPassword);
         ShiroSecurityUtils.login(token);
-        NucleusToken nucleusToken = ShiroSecurityUtils.generateToken(username, password, null);
+        NucleusToken nucleusToken = ShiroSecurityUtils.generateToken(username, hashedPassword, null);
         ShiroSecurityUtils.addToken(username, nucleusToken);
         return nucleusToken;
     }
