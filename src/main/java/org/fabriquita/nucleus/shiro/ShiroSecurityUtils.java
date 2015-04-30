@@ -6,6 +6,7 @@ import java.util.Map;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.codec.Base64;
+import org.apache.shiro.crypto.hash.Sha256Hash;
 import org.apache.shiro.subject.Subject;
 import org.springframework.stereotype.Service;
 
@@ -32,7 +33,8 @@ public class ShiroSecurityUtils {
     public static NucleusToken generateToken(String user, String password, String host) {
         NucleusToken token = new NucleusToken(user, password, host);
         String credentials = user + System.currentTimeMillis();
-        token.setCredentials(Base64.encodeToString(credentials.getBytes()));
+        String hashedCredentials = new Sha256Hash(credentials).toString();
+        token.setCredentials(Base64.encodeToString(hashedCredentials.getBytes()));
         return token;
     }
 
