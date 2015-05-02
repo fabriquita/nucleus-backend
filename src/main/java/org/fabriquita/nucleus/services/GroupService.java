@@ -25,7 +25,7 @@ public class GroupService {
         return groupRepository.findOne(id);
     }
 
-    public Group add(String name, Long parentId, String description, Boolean archived) {
+    public Group add(String name, Long parentId, String description) {
         Group group = new Group();
         Group parent = null;
         if (parentId != null) {
@@ -39,7 +39,7 @@ public class GroupService {
             group.setLevel(parent.getLevel() + 1);
         }
         group.setParent(parent);
-        group.setArchived(archived);
+        group.setArchived(false);
         return groupRepository.save(group);
     }
 

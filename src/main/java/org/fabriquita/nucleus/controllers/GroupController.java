@@ -67,12 +67,7 @@ public class GroupController {
         if (data.get("parent_id") != null) {
             parentId = new Long(data.get("parent_id").toString());
         }
-        if (data.get("archived") != null){
-            archived = Boolean.valueOf(data.get("archived").toString());
-        } else {
-            archived = false;
-        }
-        return groupService.add(name, parentId, description, archived);
+        return groupService.add(name, parentId, description);
     }
 
     @RequiresAuthentication

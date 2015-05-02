@@ -16,8 +16,8 @@ public class GroupPopDB {
         String groupDesc1 = "Group 1 Description";
         String groupName2 = "Group 2";
         String groupDesc2 = "Group 1 Description";
-        Group group1 = groupService.add(groupName1, null, groupDesc1, false);
-        Group group2 = groupService.add(groupName2, group1.getId(), groupDesc2, true);
+        Group group1 = groupService.add(groupName1, null, groupDesc1);
+        Group group2 = groupService.add(groupName2, group1.getId(), groupDesc2);
         System.out.println(group1.toMap());
         System.out.println(group2.toMap());
     }

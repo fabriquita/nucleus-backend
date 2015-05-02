@@ -95,12 +95,7 @@ public class UserController {
             throw new IllegalArgumentException(
                     "'email' must not be null or empty");
         }
-        if (data.get("archived") != null){
-            archived = Boolean.valueOf(data.get("archived").toString());
-        } else {
-            archived = false;
-        }
-        return userService.add(firstName, lastName, userName, password, groupId, roleId, email, archived);
+        return userService.add(firstName, lastName, userName, password, groupId, roleId, email);
     }
 
     @RequiresAuthentication
