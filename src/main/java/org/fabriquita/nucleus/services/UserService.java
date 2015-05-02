@@ -34,7 +34,7 @@ public class UserService {
         return userRepository.findOne(id);
     }
 
-    public User add(String name, String lastName, String userName, String password, Long groupId, Long roleId, String email, Boolean archived) {
+    public User add(String firstName, String lastName, String userName, String password, Long groupId, Long roleId, String email, Boolean archived) {
         User user = new User();
         Group group = null;
         Role role = null;
@@ -45,7 +45,7 @@ public class UserService {
             role = roleRepository.findOne(roleId);
         }
         String hashedPassword = new Sha256Hash(password).toString();
-        user.setName(name);
+        user.setFirstName(firstName);
         user.setLastName(lastName);
         user.setUserName(userName);
         user.setPassword(hashedPassword);
@@ -56,12 +56,12 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public User update(Long id, String name, String lastName, String userName, String password, String email, Long groupId, Long roleId, Boolean archived) {
+    public User update(Long id, String firstName, String lastName, String userName, String password, String email, Long groupId, Long roleId, Boolean archived) {
         User user = userRepository.findOne(id);
         Group group = null;
         Role role = null;
-        if (name != null) {
-            user.setName(name);
+        if (firstName != null) {
+            user.setFirstName(firstName);
         }
         if (lastName != null) {
             user.setLastName(lastName);

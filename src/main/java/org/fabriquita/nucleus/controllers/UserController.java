@@ -51,7 +51,7 @@ public class UserController {
     @RequiresPermissions("user:c")
     @RequestMapping(value = "/", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public User add(@RequestBody Map<String, Object> data) {
-        String name = null;
+        String firstName = null;
         String lastName = null;
         String userName = null;
         String password = null;
@@ -59,11 +59,11 @@ public class UserController {
         Long roleId = null;
         String email = null;
         Boolean archived = null;
-        if (data.get("name") != null) {
-            name = (String) data.get("name");
+        if (data.get("firstName") != null) {
+            firstName = (String) data.get("firstName");
         } else {
             throw new IllegalArgumentException(
-                    "'name' must not be null or empty");
+                    "'firstName' must not be null or empty");
         }
         if (data.get("lastName") != null) {
             lastName = (String) data.get("lastName");
@@ -100,7 +100,7 @@ public class UserController {
         } else {
             archived = false;
         }
-        return userService.add(name, lastName, userName, password, groupId, roleId, email, archived);
+        return userService.add(firstName, lastName, userName, password, groupId, roleId, email, archived);
     }
 
     @RequiresAuthentication
@@ -108,7 +108,7 @@ public class UserController {
     @RequestMapping(value = "/{id}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public User update(@PathVariable(value = "id") Long id,
             @RequestBody Map<String, Object> data) {
-        String name = null;
+        String firstName = null;
         String lastName = null;
         String userName = null;
         String password = null;
@@ -116,8 +116,8 @@ public class UserController {
         Long groupId = null;
         Long roleId = null;
         Boolean archived = null;
-        if (data.get("name") != null) {
-            name = (String) data.get("name");
+        if (data.get("firstName") != null) {
+            firstName = (String) data.get("firstName");
         }
         if (data.get("lastName") != null) {
             lastName = (String) data.get("lastName");
@@ -140,7 +140,7 @@ public class UserController {
         if (data.get("archived") != null){
             archived = Boolean.valueOf(data.get("archived").toString());
         }
-        return userService.update(id, name, lastName, userName, password, email, groupId, roleId, archived);
+        return userService.update(id, firstName, lastName, userName, password, email, groupId, roleId, archived);
     }
 
     @RequiresAuthentication

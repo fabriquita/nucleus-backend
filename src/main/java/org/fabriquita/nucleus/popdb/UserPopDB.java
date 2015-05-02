@@ -22,12 +22,12 @@ public class UserPopDB {
     GroupService groupService;
 
     public void popDB() {
-        String name1 = "admin";
+        String firstName1 = "admin";
         String lastName1 = "admin";
         String userName1 = "admin";
         String userPassword1 = "admin";
         String email1 = "admin@nucleus.com";
-        String name2 = "user";
+        String firstName2 = "user";
         String lastName2 = "user";
         String userName2 = "user";
         String userPassword2 = "user";
@@ -36,8 +36,8 @@ public class UserPopDB {
         Group group2 = groupService.list().get(1);
         Role role1 = roleService.list().get(0);
         Role role2 = roleService.list().get(1);
-        User user1 = userService.add(name1, lastName1, userName1, userPassword1, group1.getId(), role1.getId(), email1, false);
-        User user2 = userService.add(name2, lastName2, userName2, userPassword2, group2.getId(), role2.getId(), email2, true);
+        User user1 = userService.add(firstName1, lastName1, userName1, userPassword1, group1.getId(), role1.getId(), email1, false);
+        User user2 = userService.add(firstName2, lastName2, userName2, userPassword2, group2.getId(), role2.getId(), email2, true);
         System.out.println(user1.toMap());
         System.out.println(user2.toMap());
     }

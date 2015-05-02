@@ -18,7 +18,7 @@ public class User extends Mappable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private String name;
+    private String firstName;
     private String lastName;
     private String userName;
     private String password;
@@ -56,12 +56,12 @@ public class User extends Mappable {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
     public String getLastName() {
