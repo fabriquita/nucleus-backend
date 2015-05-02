@@ -52,14 +52,18 @@ public class RoleController {
     @RequestMapping(value = "/", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public Role add(@RequestBody Map<String, Object> data) {
         String name = null;
+        String description = null;
         Long groupId = null;
         if (data.get("name") != null) {
             name = (String) data.get("name");
         }
+        if (data.get("description") != null) {
+            description = (String) data.get("description");
+        }
         if (data.get("group_id") != null) {
             groupId = new Long(data.get("group_id").toString());
         }
-        return roleService.add(name, groupId);
+        return roleService.add(name, description, groupId);
     }
 
     @RequiresAuthentication

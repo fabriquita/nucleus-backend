@@ -40,13 +40,14 @@ public class RoleService {
         return roleRepository.findOne(id);
     }
 
-    public Role add(String name, Long groupId) {
+    public Role add(String name, String description, Long groupId) {
         Role role = new Role();
         Group group = null;
         if (groupId != null) {
             group = groupRepository.findOne(groupId);
         }
         role.setName(name);
+        role.setDescription(description);
         role.setGroup(group);
         return roleRepository.save(role);
     }

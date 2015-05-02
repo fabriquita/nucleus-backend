@@ -18,11 +18,13 @@ public class RolePopDB {
 
     public void popDB() {
         String roleName1 = "Role 1";
+        String description1 = "Description for role 1";
         String roleName2 = "Role 2";
+        String description2 = "Description for role 2";
         Group group1 = groupService.list().get(0);
         Group group2 = groupService.list().get(1);
-        Role role1 = roleService.add(roleName1, group1.getId());
-        Role role2 = roleService.add(roleName2, group2.getId());
+        Role role1 = roleService.add(roleName1, description1, group1.getId());
+        Role role2 = roleService.add(roleName2, description2, group2.getId());
         System.out.println(role1.toMap());
         System.out.println(role2.toMap());
     }

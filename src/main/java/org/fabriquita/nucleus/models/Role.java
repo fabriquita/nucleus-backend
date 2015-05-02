@@ -25,6 +25,8 @@ public class Role extends Mappable {
 
     String name;
 
+    String description;
+
     @ManyToOne
     @JoinColumn(name = "group_id")
     Group group;
@@ -50,6 +52,14 @@ public class Role extends Mappable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Group getGroup() {
