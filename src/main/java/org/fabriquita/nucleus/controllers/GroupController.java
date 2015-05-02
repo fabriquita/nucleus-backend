@@ -69,6 +69,8 @@ public class GroupController {
         }
         if (data.get("archived") != null){
             archived = Boolean.valueOf(data.get("archived").toString());
+        } else {
+            archived = false;
         }
         return groupService.add(name, parentId, description, archived);
     }
