@@ -97,6 +97,8 @@ public class UserController {
         }
         if (data.get("archived") != null){
             archived = Boolean.valueOf(data.get("archived").toString());
+        } else {
+            archived = false;
         }
         return userService.add(name, lastName, userName, password, groupId, roleId, email, archived);
     }
