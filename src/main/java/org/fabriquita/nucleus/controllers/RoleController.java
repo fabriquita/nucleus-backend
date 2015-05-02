@@ -72,14 +72,18 @@ public class RoleController {
     public Role update(@PathVariable(value = "id") Long id,
             @RequestBody Map<String, Object> data) {
         String name = null;
+        String description = null;
         Long groupId = null;
         if (data.get("name") != null) {
             name = (String) data.get("name");
         }
+        if (data.get("description") != null) {
+            description = (String) data.get("description");
+        }
         if (data.get("group_id") != null) {
             groupId = new Long(data.get("group_id").toString());
         }
-        return roleService.update(id, name, groupId);
+        return roleService.update(id, name, description, groupId);
     }
 
     @RequiresAuthentication

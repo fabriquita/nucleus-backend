@@ -52,14 +52,20 @@ public class RoleService {
         return roleRepository.save(role);
     }
 
-    public Role update(Long id, String name, Long groupId) {
+    public Role update(Long id, String name, String description, Long groupId) {
         Role role = roleRepository.findOne(id);
         Group group = null; 
         if (name != null) {
             role.setName(name);
         }
+        if (description != null) {
+            role.setDescription(description);
+        }
         if (groupId != null) {
             group = groupRepository.findOne(groupId);
+        }
+        if(group != null){
+            role.setGroup(group);
         }
         return roleRepository.save(role);
     }
