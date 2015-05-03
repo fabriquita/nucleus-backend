@@ -106,8 +106,12 @@ public class UserService {
             user = userRepository.findByEmailAndPassword(name, password);
         }
         if (user != null) {
-            user.setLastLogin();
-            userRepository.save(user);
+            if (user.isArchived()) {
+                user = null;
+            } else {
+                user.setLastLogin();
+                userRepository.save(user);
+            }
         }
         return user;
     }

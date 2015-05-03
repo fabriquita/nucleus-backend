@@ -104,7 +104,7 @@ public class User extends Mappable {
         this.email = email;
     }
 
-    public Boolean getArchived() {
+    public Boolean isArchived() {
         return archived;
     }
 
