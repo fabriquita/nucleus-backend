@@ -24,7 +24,7 @@ public class User extends Mappable {
     private String password;
     private String email;
 
-    private Boolean archived;
+    private Boolean active;
 
     private Date lastLogin;
 
@@ -37,7 +37,7 @@ public class User extends Mappable {
     private Role role;
 
     public User() {
-        archived = false;
+        active = true;
     }
 
     public Role getRole() {
@@ -104,12 +104,12 @@ public class User extends Mappable {
         this.email = email;
     }
 
-    public Boolean isArchived() {
-        return archived;
+    public Boolean getActive() {
+        return active;
     }
 
-    public void setArchived(Boolean archived) {
-        this.archived = archived;
+    public void setActive(Boolean active) {
+        this.active = active;
     }
 
     @Override

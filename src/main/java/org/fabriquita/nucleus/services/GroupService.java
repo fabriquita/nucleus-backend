@@ -39,11 +39,11 @@ public class GroupService {
             group.setLevel(parent.getLevel() + 1);
         }
         group.setParent(parent);
-        group.setArchived(false);
+        group.setActive(true);
         return groupRepository.save(group);
     }
 
-    public Group update(Long id, String name, Long parentId, String description, Boolean archived) {
+    public Group update(Long id, String name, Long parentId, String description, Boolean active) {
         Group group = groupRepository.findOne(id);
         Group parent = null;
         if (parentId != null) {
@@ -59,15 +59,15 @@ public class GroupService {
         if (description != null) {
             group.setDescription(description);
         }
-        if (archived != null) {
-          group.setArchived(archived);
+        if (active != null) {
+          group.setActive(active);
         }
         return groupRepository.save(group);
     }
 
     public void delete(Long id) {
         Group group = groupRepository.findOne(id);
-        group.setArchived(true);
+        group.setActive(false);
         groupRepository.save(group);
     }
 

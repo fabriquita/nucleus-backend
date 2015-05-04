@@ -52,11 +52,11 @@ public class UserService {
         user.setGroup(group);
         user.setRole(role);
         user.setEmail(email);
-        user.setArchived(false);
+        user.setActive(true);
         return userRepository.save(user);
     }
 
-    public User update(Long id, String firstName, String lastName, String userName, String password, String email, Long groupId, Long roleId, Boolean archived) {
+    public User update(Long id, String firstName, String lastName, String userName, String password, String email, Long groupId, Long roleId, Boolean active) {
         User user = userRepository.findOne(id);
         Group group = null;
         Role role = null;
@@ -88,15 +88,15 @@ public class UserService {
         if (role != null) {
             user.setRole(role);
         }
-        if (archived != null) {
-          user.setArchived(archived);
+        if (active != null) {
+          user.setActive(active);
         }
         return userRepository.save(user);
     }
 
     public void delete(Long id) {
         User user = userRepository.findOne(id);
-        user.setArchived(true);
+        user.setActive(false);
         userRepository.save(user);
     }
 
@@ -106,7 +106,7 @@ public class UserService {
             user = userRepository.findByEmailAndPassword(name, password);
         }
         if (user != null) {
-            if (user.isArchived()) {
+            if (!user.getActive()) {
                 user = null;
             } else {
                 user.setLastLogin();

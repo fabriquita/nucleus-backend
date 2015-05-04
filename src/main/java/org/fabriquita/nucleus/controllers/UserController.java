@@ -58,7 +58,6 @@ public class UserController {
         Long groupId = null;
         Long roleId = null;
         String email = null;
-        Boolean archived = null;
         if (data.get("firstName") != null) {
             firstName = (String) data.get("firstName");
         } else {
@@ -110,7 +109,7 @@ public class UserController {
         String email = null;
         Long groupId = null;
         Long roleId = null;
-        Boolean archived = null;
+        Boolean active = null;
         if (data.get("firstName") != null) {
             firstName = (String) data.get("firstName");
         }
@@ -132,10 +131,10 @@ public class UserController {
         if (data.get("role_id") != null) {
             roleId = new Long(data.get("role_id").toString());
         }
-        if (data.get("archived") != null){
-            archived = Boolean.valueOf(data.get("archived").toString());
+        if (data.get("active") != null){
+            active = Boolean.valueOf(data.get("active").toString());
         }
-        return userService.update(id, firstName, lastName, userName, password, email, groupId, roleId, archived);
+        return userService.update(id, firstName, lastName, userName, password, email, groupId, roleId, active);
     }
 
     @RequiresAuthentication

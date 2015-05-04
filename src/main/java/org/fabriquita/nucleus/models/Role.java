@@ -27,6 +27,8 @@ public class Role extends Mappable {
 
     String description;
 
+    Boolean active;
+
     @ManyToOne
     @JoinColumn(name = "group_id")
     Group group;
@@ -76,6 +78,14 @@ public class Role extends Mappable {
 
     public void setRoleResources(List<RoleResource> roleResources) {
         this.roleResources = roleResources;
+    }
+
+    public Boolean getActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
     }
 
     @Override

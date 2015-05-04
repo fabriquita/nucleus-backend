@@ -30,27 +30,31 @@ public class ResourceService {
         return resourceRepository.findOne(id);
     }
 
-    public Resource add(String name, Long groupId) {
+    public Resource add(String name, String description, Long groupId) {
         Resource resource = new Resource();
         Group group = null;
-        if(groupId != null){
+        if (groupId != null) {
             group = groupRepository.findOne(groupId);
         }
         resource.setName(name);
+        resource.setDescription(description);
         resource.setGroup(group);
         return resourceRepository.save(resource);
     }
 
-    public Resource update(Long id, String name, Long groupId) {
+    public Resource update(Long id, String name, String description, Long groupId) {
         Resource resource = resourceRepository.findOne(id);
         Group group = null;
-        if ( name != null ){
+        if (name != null) {
             resource.setName(name);
         }
-        if(groupId != null) {
+        if (description != null) {
+            resource.setDescription(description);
+        }
+        if (groupId != null) {
             group = groupRepository.findOne(groupId);
         }
-        if( group != null ){
+        if (group != null) {
             resource.setGroup(group);
         }
         return resourceRepository.save(resource);

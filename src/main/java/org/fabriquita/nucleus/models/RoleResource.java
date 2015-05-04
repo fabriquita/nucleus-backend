@@ -34,6 +34,10 @@ public class RoleResource extends Mappable {
     @JoinColumn(name = "resource_id")
     Resource resource;
 
+    @ManyToOne
+    @JoinColumn(name = "group_id", nullable = true)
+    Group group;
+
     @Column(name = "create0")
     Boolean create;
     @Column(name = "read0")
@@ -44,6 +48,8 @@ public class RoleResource extends Mappable {
     Boolean delete;
     @Column(name = "execute0")
     Boolean execute;
+
+    Boolean active;
 
     public RoleResource() {
     }
@@ -62,6 +68,7 @@ public class RoleResource extends Mappable {
 
     public void setRole(Role role) {
         this.role = role;
+        this.group = role.getGroup();
     }
 
     public Resource getResource() {
@@ -110,6 +117,18 @@ public class RoleResource extends Mappable {
 
     public void setExecute(Boolean execute) {
         this.execute = execute;
+    }
+
+    public Boolean getActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
+    }
+
+    public Group getGroup() {
+        return group;
     }
 
     public List<String> getRoleResourcePermissions() {

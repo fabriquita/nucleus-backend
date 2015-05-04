@@ -76,7 +76,7 @@ public class GroupControllerTest {
         restTemplate.delete(baseUrl + root.getId());
         Group deletedGroup = restTemplate.getForObject(baseUrl + root.getId(),
                 Group.class);
-        assertEquals(deletedGroup.getArchived(), "true");
+        assertEquals(deletedGroup.getActive(), "true");
     }
 
 }

@@ -25,13 +25,8 @@ public class ResourcePopDB {
                 "roleResource"
         };
         Group group1 = groupService.list().get(0);
-        Group group2 = groupService.list().get(1);
         for (String resourceName : resources) {
-            Resource resource = resourceService.add(resourceName, group1.getId());
-            System.out.println(resource.toMap());
-        }
-        for (String resourceName : resources) {
-            Resource resource = resourceService.add(resourceName, group2.getId());
+            Resource resource = resourceService.add(resourceName, resourceName, group1.getId());
             System.out.println(resource.toMap());
         }
     }

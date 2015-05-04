@@ -19,13 +19,13 @@ public class Group extends Mappable {
     private String name;
     private Long level;
 
-    private Boolean archived;
+    private Boolean active;
 
     @ManyToOne
     private Group parent;
 
     public Group() {
-        archived = false;
+        active = true;
     }
 
     public Long getId() {
@@ -68,12 +68,12 @@ public class Group extends Mappable {
         this.description = description;
     }
 
-    public Boolean getArchived() {
-        return archived;
+    public Boolean getActive() {
+        return active;
     }
 
-    public void setArchived(Boolean archived) {
-        this.archived = archived;
+    public void setActive(Boolean active) {
+        this.active = active;
     }
 
     @Override

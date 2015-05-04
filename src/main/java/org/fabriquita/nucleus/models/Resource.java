@@ -24,6 +24,9 @@ public class Resource extends Mappable {
     Long id;
 
     String name;
+    String description;
+
+    Boolean active;
 
     @ManyToOne
     @JoinColumn(name = "group_id", nullable = true)
@@ -52,6 +55,14 @@ public class Resource extends Mappable {
         this.name = name;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public Group getGroup() {
         return group;
     }
@@ -66,6 +77,14 @@ public class Resource extends Mappable {
 
     public void setRoleResources(List<RoleResource> roleResources) {
         this.roleResources = roleResources;
+    }
+
+    public Boolean getActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
     }
 
     @Override

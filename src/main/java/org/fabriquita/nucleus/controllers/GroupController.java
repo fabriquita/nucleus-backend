@@ -54,7 +54,6 @@ public class GroupController {
         String name = null;
         String description = null;
         Long parentId = null;
-        Boolean archived = null;
         if (data.get("name") != null) {
             name = (String) data.get("name");
         } else {
@@ -78,7 +77,7 @@ public class GroupController {
         String name = null;
         String description = null;
         Long parentId = null;
-        Boolean archived = null;
+        Boolean active = null;
         if (data.get("parent_id") != null) {
             parentId = new Long(data.get("parent_id").toString());
         }
@@ -88,10 +87,10 @@ public class GroupController {
         if (data.get("description") != null) {
             description = (String) data.get("description");
         }
-        if (data.get("archived") != null){
-            archived = Boolean.valueOf(data.get("archived").toString());
+        if (data.get("active") != null){
+            active = Boolean.valueOf(data.get("active").toString());
         }
-        return groupService.update(id, name, parentId, description, archived);
+        return groupService.update(id, name, parentId, description, active);
     }
 
     @RequiresAuthentication
