@@ -1,12 +1,18 @@
 package org.fabriquita.nucleus.models;
 
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "group0")
@@ -29,6 +35,10 @@ public class Group extends Mappable {
 
     @ManyToOne
     private Group parent;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "parent", fetch = FetchType.EAGER)
+    private Set<Group> children;
 
     public Group() {
         active = true;
@@ -80,6 +90,14 @@ public class Group extends Mappable {
 
     public void setActive(Boolean active) {
         this.active = active;
+    }
+
+    public Set<Group> getChildren() {
+        return children;
+    }
+
+    public void setChildren(Set<Group> children) {
+        this.children = children;
     }
 
     @Override

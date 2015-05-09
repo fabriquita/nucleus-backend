@@ -42,4 +42,10 @@ public class ShiroSecurityUtils {
         Subject currentUser = SecurityUtils.getSubject();
         currentUser.login(token);
     }
+
+    public static Long getCurrentUserId() {
+        Subject currentUser = SecurityUtils.getSubject();
+        return (Long) currentUser.getPrincipal();
+    }
+
 }

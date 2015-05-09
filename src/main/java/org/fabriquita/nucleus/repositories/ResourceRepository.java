@@ -7,5 +7,5 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 
 @Transactional
 public interface ResourceRepository extends PagingAndSortingRepository<Resource, Long> {
-   
+
 }

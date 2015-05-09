@@ -1,5 +1,6 @@
 package org.fabriquita.nucleus.services;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import org.fabriquita.nucleus.models.Group;
@@ -74,6 +75,79 @@ public class GroupService {
     public Page<Group> list(Integer page, Integer size) {
         PageRequest pageRequest = new PageRequest(page, size);
         return groupRepository.findAll(pageRequest);
+    }
+
+    public List<Group> getDownGroups(Long id) {
+        Group group = groupRepository.findOne(id);
+        return getDownGroups(group);
+    }
+
+    public List<Group> getDownGroups(Group group) {
+        List<Group> groups = new LinkedList<>();
+        for (Group childGroup : group.getChildren()) {
+            groups.add(childGroup);
+            groups.addAll(getDownGroups(childGroup));
+        }
+        return groups;
+    }
+
+    public List<Group> getDownGroupsAndGroup(Group group) {
+        List<Group> groups = getDownGroups(group);
+        groups.add(group);
+        return groups;
+    }
+
+    public List<Group> getUpGroups(Long id) {
+        Group group = groupRepository.findOne(id);
+        return getUpGroups(group);
+    }
+
+    public List<Group> getUpGroups(Group group) {
+        List<Group> groups = new LinkedList<>();
+        Group parent = group.getParent();
+        if (parent != null) {
+            groups.add(parent);
+            groups.addAll(getUpGroups(parent));
+        }
+        return groups;
+    }
+
+    public List<Group> getUpGroupsAndGroup(Group group) {
+        List<Group> groups = getUpGroups(group);
+        groups.add(group);
+        return groups;
+    }
+
+    public boolean isVisibleUp(Group currentGroup, Group group) {
+        for (Group visibleGroup : getUpGroups(currentGroup)) {
+            if (visibleGroup.getId() == group.getId()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean isVisibleUpAndGroup(Group currentGroup, Group group) {
+        if (currentGroup.getId() == group.getId()) {
+            return true;
+        }
+        return isVisibleUp(currentGroup, group);
+    }
+
+    public boolean isVisibleDown(Group currentGroup, Group group) {
+        for (Group visibleGroup : getDownGroups(currentGroup)) {
+            if (visibleGroup.getId() == group.getId()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean isVisibleDownAndGroup(Group currentGroup, Group group) {
+        if (currentGroup.getId() == group.getId()) {
+            return true;
+        }
+        return isVisibleDown(currentGroup, group);
     }
 
 }

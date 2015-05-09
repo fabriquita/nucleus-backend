@@ -63,14 +63,14 @@ public class AuthControllerTest {
 
         // Create group, user, roles and resources
         Group rootGroup = groupService.add("Root", null, null);
-        Role adminRole = roleService.add("admin", rootGroup.getId());
-        Resource userResource = resourceService.add("user", rootGroup.getId());
+        Role adminRole = roleService.add("admin", "admin", rootGroup.getId());
+        Resource userResource = resourceService.add("user", "user", rootGroup.getId());
         RoleResource adminUserRoleResource = roleResourceService.add(adminRole.getId(), userResource.getId(), "crudx");
-        User rootUser = userService.add("root", "none", rootGroup.getId(), adminRole.getId());
+        User rootUser = userService.add("root", "root", "root", "none", rootGroup.getId(), adminRole.getId(), "root@nucleus.com");
 
         // Login
         Map<String, Object> map = new HashMap<>();
-        map.put("user", rootUser.getName());
+        map.put("user", rootUser.getUserName());
         map.put("password", rootUser.getPassword());
 
         ResponseEntity<String> response = restTemplate.postForEntity(baseUrl + "login", map, String.class);

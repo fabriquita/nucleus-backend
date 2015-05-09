@@ -37,6 +37,8 @@ public class UserController {
         if (size == null) {
             size = NucleusConstants.PAGE_SIZE;
         }
+        Page<User> lepage = userService.list(page, size);
+        lepage.getSize();
         return userService.list(page, size);
     }
 

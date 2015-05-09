@@ -24,10 +24,8 @@ public class RoleResourcePopDB {
     public void popDB() {
         for (Resource resource : resourceService.list()) {
             for (Role role : roleService.list()) {
-                if (resource.getGroup().getId() == role.getGroup().getId()) {
-                    RoleResource roleResource = roleResourceService.add(role.getId(), resource.getId(), "crudx");
-                    System.out.println(roleResource.toMap());
-                }
+                RoleResource roleResource = roleResourceService.add(role.getId(), resource.getId(), "crudx");
+                System.out.println(roleResource.toMap());
             }
         }
     }

@@ -9,6 +9,7 @@ import org.fabriquita.nucleus.models.User;
 import org.fabriquita.nucleus.repositories.GroupRepository;
 import org.fabriquita.nucleus.repositories.RoleRepository;
 import org.fabriquita.nucleus.repositories.UserRepository;
+import org.fabriquita.nucleus.shiro.ShiroSecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -26,12 +27,15 @@ public class UserService {
     @Autowired
     RoleRepository roleRepository;
 
+    @Autowired
+    GroupService groupService;
+
     public List<User> list() {
         return Lists.newLinkedList(userRepository.findAll());
     }
 
     public User get(Long id) {
-        return userRepository.findOne(id);
+        return userRepository.findByIdAndGroupIn(id, getVisibilityGroups());
     }
 
     public User add(String firstName, String lastName, String userName, String password, Long groupId, Long roleId, String email) {
@@ -40,9 +44,15 @@ public class UserService {
         Role role = null;
         if (groupId != null) {
             group = groupRepository.findOne(groupId);
+            if (!groupService.isVisibleDownAndGroup(getVisibilityGroup(), group)) {
+                return null;
+            }
         }
         if (roleId != null) {
             role = roleRepository.findOne(roleId);
+            if (!groupService.isVisibleDownAndGroup(getVisibilityGroup(), role.getGroup())) {
+                role = null;
+            }
         }
         String hashedPassword = new Sha256Hash(password).toString();
         user.setFirstName(firstName);
@@ -57,7 +67,7 @@ public class UserService {
     }
 
     public User update(Long id, String firstName, String lastName, String userName, String password, String email, Long groupId, Long roleId, Boolean active) {
-        User user = userRepository.findOne(id);
+        User user = userRepository.findByIdAndGroupIn(id, getVisibilityGroups());
         Group group = null;
         Role role = null;
         if (firstName != null) {
@@ -78,12 +88,18 @@ public class UserService {
         }
         if(groupId != null){
             group = groupRepository.findOne(groupId);
+            if (!groupService.isVisibleDownAndGroup(getVisibilityGroup(), group)) {
+                group = null;
+            }
         }
         if(group != null){
             user.setGroup(group);
         }
         if (roleId != null) {
             role = roleRepository.findOne(roleId);
+            if (!groupService.isVisibleDownAndGroup(getVisibilityGroup(), role.getGroup())) {
+                role = null;
+            }
         }
         if (role != null) {
             user.setRole(role);
@@ -95,7 +111,7 @@ public class UserService {
     }
 
     public void delete(Long id) {
-        User user = userRepository.findOne(id);
+        User user = userRepository.findByIdAndGroupIn(id, getVisibilityGroups());
         user.setActive(false);
         userRepository.save(user);
     }
@@ -118,7 +134,25 @@ public class UserService {
 
     public Page<User> list(Integer page, Integer size) {
         PageRequest pageRequest = new PageRequest(page, size);
-        return userRepository.findAll(pageRequest);
+        return userRepository.findByGroupIn(pageRequest, getVisibilityGroups());
+    }
+
+    private Group getVisibilityGroup() {
+        User currentUser = userRepository.findOne(ShiroSecurityUtils.getCurrentUserId());
+        return currentUser.getGroup();
+    }
+
+    private List<Group> getVisibilityGroups() {
+        List<Group> groups = groupService.getDownGroupsAndGroup(getVisibilityGroup());
+        return groups;
+    }
+
+    public User getByUsername(String username) {
+        return userRepository.findByUserName(username);
+    }
+
+    public User getByEmail(String email) {
+        return userRepository.findByEmail(email);
     }
 
 }

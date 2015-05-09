@@ -60,7 +60,7 @@ public class UserControllerTest {
         Map<String, Object> user = (Map<String, Object>) restTemplate
                 .getForObject(baseUrl, Vector.class).firstElement();
         User root = new User();
-        root.setName((String) user.get("name"));
+        root.setUserName((String) user.get("name"));
         root.setId(new Long((Integer) user.get("id")));
 
         Group group = new Group();
@@ -74,7 +74,7 @@ public class UserControllerTest {
 
         User rootUser = restTemplate.getForObject(baseUrl + root.getId(),
                 User.class);
-        assertEquals(root.getName(), rootUser.getName());
+        assertEquals(root.getUserName(), rootUser.getUserName());
 
         // Update it
 
@@ -83,7 +83,7 @@ public class UserControllerTest {
         updateData.put("name", nameToUpdate);
         User updatedUser = restTemplate.postForObject(baseUrl + root.getId(),
                 updateData, User.class);
-        assertEquals(nameToUpdate, updatedUser.getName());
+        assertEquals(nameToUpdate, updatedUser.getUserName());
 
         // Delete it
 

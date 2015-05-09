@@ -20,7 +20,8 @@ public class UserServiceTest {
     public void allTest() {
         String name1 = "user1";
         String password1 = "none";
-        User user1 = userService.add(name1, password1, null, null);
+        String email1 = "user1@nucleus.com";
+        User user1 = userService.add(name1, name1, name1, password1, null, null, email1);
         User user2 = userService.get(user1.getId());
         Assert.assertEquals(user1.getId(), user2.getId());
     }
