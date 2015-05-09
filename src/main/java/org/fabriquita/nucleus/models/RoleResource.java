@@ -27,31 +27,33 @@ public class RoleResource extends Mappable {
     Long id;
 
     @ManyToOne
-    @JoinColumn(name = "role_id")
+    @JoinColumn(name = "role_id", nullable = false)
     Role role;
 
     @ManyToOne
-    @JoinColumn(name = "resource_id")
+    @JoinColumn(name = "resource_id", nullable = false)
     Resource resource;
 
     @ManyToOne
-    @JoinColumn(name = "group_id", nullable = true)
+    @JoinColumn(name = "group_id", nullable = false)
     Group group;
 
-    @Column(name = "create0")
+    @Column(name = "create0", nullable = false)
     Boolean create;
-    @Column(name = "read0")
+    @Column(name = "read0", nullable = false)
     Boolean read;
-    @Column(name = "update0")
+    @Column(name = "update0", nullable = false)
     Boolean update;
-    @Column(name = "delete0")
+    @Column(name = "delete0", nullable = false)
     Boolean delete;
-    @Column(name = "execute0")
+    @Column(name = "execute0", nullable = false)
     Boolean execute;
 
+    @Column(nullable = false)
     Boolean active;
 
     public RoleResource() {
+        active = true;
     }
 
     public Long getId() {

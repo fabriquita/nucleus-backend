@@ -23,14 +23,16 @@ public class Role extends Mappable {
     @Column(name = "role_id")
     Long id;
 
+    @Column(nullable = false)
     String name;
 
     String description;
 
+    @Column(nullable = false)
     Boolean active;
 
     @ManyToOne
-    @JoinColumn(name = "group_id")
+    @JoinColumn(name = "group_id", nullable = false)
     Group group;
 
     @JsonIgnore
@@ -38,6 +40,7 @@ public class Role extends Mappable {
     private List<RoleResource> roleResources;
 
     public Role() {
+        active = true;
     }
 
     public Long getId() {
