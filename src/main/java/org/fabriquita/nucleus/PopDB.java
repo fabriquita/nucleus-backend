@@ -5,6 +5,7 @@ import org.fabriquita.nucleus.popdb.ResourcePopDB;
 import org.fabriquita.nucleus.popdb.RolePopDB;
 import org.fabriquita.nucleus.popdb.RoleResourcePopDB;
 import org.fabriquita.nucleus.popdb.UserPopDB;
+import org.fabriquita.nucleus.shiro.ShiroSecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -36,6 +37,7 @@ public class PopDB implements CommandLineRunner {
 
     public static void main(String[] args) {
         isPopDBExecuted = true;
+        ShiroSecurityUtils.setPopdb(true);
 		SpringApplication.run(PopDB.class, args);
 	}
 

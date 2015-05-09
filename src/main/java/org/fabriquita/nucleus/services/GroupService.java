@@ -144,6 +144,9 @@ public class GroupService {
     }
 
     public boolean isVisibleDownAndGroup(Group currentGroup, Group group) {
+        if (currentGroup == null) {
+            return false;
+        }
         if (currentGroup.getId() == group.getId()) {
             return true;
         }

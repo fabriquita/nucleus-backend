@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 public class ShiroSecurityUtils {
 
     private static Map<String, NucleusToken> tokens;
+    private static boolean popdb = false;
 
     private static Map<String, NucleusToken> getTokens() {
         if (tokens == null) {
@@ -43,9 +44,21 @@ public class ShiroSecurityUtils {
         currentUser.login(token);
     }
 
+    public static boolean isPopdb() {
+        return popdb;
+    }
+
+    public static void setPopdb(boolean popdbValue) {
+        popdb = popdbValue;
+    }
+
     public static Long getCurrentUserId() {
-        Subject currentUser = SecurityUtils.getSubject();
-        return (Long) currentUser.getPrincipal();
+        if (popdb){
+            return 0L;
+        } else {
+            Subject currentUser = SecurityUtils.getSubject();
+            return (Long) currentUser.getPrincipal();
+        }
     }
 
 }

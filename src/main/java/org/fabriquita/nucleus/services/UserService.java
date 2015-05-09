@@ -139,6 +139,12 @@ public class UserService {
 
     private Group getVisibilityGroup() {
         User currentUser = userRepository.findOne(ShiroSecurityUtils.getCurrentUserId());
+        if (currentUser == null) {
+            if (ShiroSecurityUtils.isPopdb()) {
+                return groupRepository.findOne(1L);
+            }
+            return null;
+        }
         return currentUser.getGroup();
     }
 
