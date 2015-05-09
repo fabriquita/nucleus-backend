@@ -46,6 +46,29 @@ public class RoleResourceController {
     public RoleResource get(@PathVariable(value = "id") Long id) {
         return roleResourceService.get(id);
     }
+    
+    @RequiresAuthentication
+    @RequiresPermissions("roleresource:c")
+    @RequestMapping(value = "/", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public RoleResource add(@RequestBody Map<String, Object> data) {
+        Long roleId = null;
+        Long resourceId = null;
+        String permissions = null;
+       
+        if (data.get("role_id") != null) {
+            roleId = new Long(data.get("role_id").toString());
+        }
+        if (data.get("resource_id") != null){
+            resourceId = new Long(data.get("resource_id").toString());
+        }
+        if (data.get("permissions") != null) {
+            permissions = (String) data.get("permissions");
+        } else {
+            throw new IllegalArgumentException(
+                    "'permissions' must not be null or empty");
+        }
+        return roleResourceService.add(roleId, resourceId, permissions);
+    }
 
     @RequiresAuthentication
     @RequiresPermissions("roleresource:u")
