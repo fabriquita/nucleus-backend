@@ -28,7 +28,7 @@ public class RoleResourceController {
     private RoleResourceService roleResourceService;
 
     @RequiresAuthentication
-    @RequiresPermissions("roleresources:r")
+    @RequiresPermissions("roleresource:r")
     @RequestMapping(value = "/", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public Page<RoleResource> list(@RequestParam(value = "page", required = false) Integer page, @RequestParam(value = "size", required = false) Integer size) {
         if (page == null) {
@@ -41,14 +41,14 @@ public class RoleResourceController {
     }
 
     @RequiresAuthentication
-    @RequiresPermissions("roleresources:r")
+    @RequiresPermissions("roleresource:r")
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public RoleResource get(@PathVariable(value = "id") Long id) {
         return roleResourceService.get(id);
     }
 
     @RequiresAuthentication
-    @RequiresPermissions("roleresources:u")
+    @RequiresPermissions("roleresource:u")
     @RequestMapping(value = "/{id}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public RoleResource update(@PathVariable(value = "id") Long id,
             @RequestBody Map<String, Object> data) {
@@ -60,7 +60,7 @@ public class RoleResourceController {
     }
 
     @RequiresAuthentication
-    @RequiresPermissions("roleresources:d")
+    @RequiresPermissions("roleresource:d")
     @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
     public void delete(@PathVariable(value = "id") Long id) {
         roleResourceService.delete(id);
