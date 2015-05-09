@@ -2,6 +2,7 @@ package org.fabriquita.nucleus.models;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -18,22 +19,32 @@ public class User extends Mappable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @Column(nullable = false)
     private String firstName;
+
+    @Column(nullable = false)
     private String lastName;
+
+    @Column(nullable = false)
     private String userName;
+
+    @Column(nullable = false)
     private String password;
+
+    @Column(nullable = false)
     private String email;
 
+    @Column(nullable = false)
     private Boolean active;
 
     private Date lastLogin;
 
     @ManyToOne
-    @JoinColumn(name = "group_id", nullable = true)
+    @JoinColumn(name = "group_id", nullable = false)
     private Group group;
 
     @ManyToOne
-    @JoinColumn(name = "role_id", nullable = true)
+    @JoinColumn(name = "role_id", nullable = false)
     private Role role;
 
     public User() {
