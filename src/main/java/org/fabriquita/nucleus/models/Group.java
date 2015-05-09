@@ -1,5 +1,6 @@
 package org.fabriquita.nucleus.models;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -16,9 +17,14 @@ public class Group extends Mappable {
     private Long id;
 
     private String description;
+
+    @Column(nullable = false)
     private String name;
+
+    @Column(nullable = false)
     private Long level;
 
+    @Column(nullable = false)
     private Boolean active;
 
     @ManyToOne
