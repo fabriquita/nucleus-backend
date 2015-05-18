@@ -4,7 +4,10 @@ import java.util.LinkedList;
 import java.util.List;
 
 import org.fabriquita.nucleus.models.Group;
+import org.fabriquita.nucleus.models.User;
 import org.fabriquita.nucleus.repositories.GroupRepository;
+import org.fabriquita.nucleus.repositories.UserRepository;
+import org.fabriquita.nucleus.shiro.ShiroSecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -18,12 +21,15 @@ public class GroupService {
     @Autowired
     GroupRepository groupRepository;
 
+    @Autowired
+    UserRepository userRepository;
+
     public List<Group> list() {
         return Lists.newLinkedList(groupRepository.findAll());
     }
 
     public Group get(Long id) {
-        return groupRepository.findOne(id);
+        return groupRepository.findByIdAndIdIn(id, getVisibilityGroupsIds());
     }
 
     public Group add(String name, Long parentId, String description) {
@@ -31,6 +37,9 @@ public class GroupService {
         Group parent = null;
         if (parentId != null) {
             parent = groupRepository.findOne(parentId);
+            if (!isVisibleDownAndGroup(getVisibilityGroup(), parent)) {
+                parent = null;
+            }
         }
         group.setName(name);
         group.setDescription(description);
@@ -49,6 +58,9 @@ public class GroupService {
         Group parent = null;
         if (parentId != null) {
             parent = groupRepository.findOne(parentId);
+            if (!isVisibleDownAndGroup(getVisibilityGroup(), parent)) {
+                parent = null;
+            }
         }
         if (parent != null) {
             group.setLevel(parent.getLevel() + 1);
@@ -67,14 +79,14 @@ public class GroupService {
     }
 
     public void delete(Long id) {
-        Group group = groupRepository.findOne(id);
+        Group group = groupRepository.findByIdAndIdIn(id, getVisibilityGroupsIds());
         group.setActive(false);
         groupRepository.save(group);
     }
 
     public Page<Group> list(Integer page, Integer size) {
         PageRequest pageRequest = new PageRequest(page, size);
-        return groupRepository.findAll(pageRequest);
+        return groupRepository.findByIdIn(pageRequest, getVisibilityGroupsIds());
     }
 
     public List<Group> getDownGroups(Long id) {
@@ -153,4 +165,27 @@ public class GroupService {
         return isVisibleDown(currentGroup, group);
     }
 
+    private Group getVisibilityGroup() {
+        User currentUser = userRepository.findOne(ShiroSecurityUtils.getCurrentUserId());
+        if (currentUser == null) {
+            if (ShiroSecurityUtils.isPopdb()) {
+                return groupRepository.findOne(1L);
+            }
+            return null;
+        }
+        return currentUser.getGroup();
+    }
+
+    private List<Group> getVisibilityGroups() {
+        List<Group> groups = getDownGroupsAndGroup(getVisibilityGroup());
+        return groups;
+    }
+
+    private List<Long> getVisibilityGroupsIds() {
+        List<Long> ids = new LinkedList<>();
+        for (Group group : getVisibilityGroups()) {
+            ids.add(group.getId());
+        }
+        return ids;
+    }
 }
