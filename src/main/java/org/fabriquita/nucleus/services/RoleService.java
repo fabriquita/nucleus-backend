@@ -41,6 +41,9 @@ public class RoleService {
     @Autowired
     GroupService groupService;
 
+    @Autowired
+    ResourceService resourceService;
+
     public List<Role> list() {
         return Lists.newLinkedList(roleRepository.findAll());
     }
@@ -87,7 +90,7 @@ public class RoleService {
     
     public Role addRoleResource(Long roleId, Long resourceId, String permissions){
         Role role = roleRepository.findByIdAndGroupIn(roleId, getVisibilityGroups());
-        Resource resource = resourceRepository.findOne(resourceId); // TODO grisaf add resource visibility
+        Resource resource = resourceRepository.findByIdAndGroupIn(resourceId, resourceService.getVisibilityGroups());
         RoleResource roleResource = new RoleResource();
         roleResource.setRole(role);
         roleResource.setResource(resource);

@@ -130,6 +130,14 @@ public class GroupService {
         return groups;
     }
 
+    public List<Group> getUpAndDownGroupsAndGroup(Group group) {
+        List<Group> groups = getUpGroups(group);
+        groups.add(group);
+        List<Group> downGroups = getDownGroups(group);
+        groups.addAll(downGroups);
+        return groups;
+    }
+
     public boolean isVisibleUp(Group currentGroup, Group group) {
         for (Group visibleGroup : getUpGroups(currentGroup)) {
             if (visibleGroup.getId() == group.getId()) {
@@ -163,6 +171,16 @@ public class GroupService {
             return true;
         }
         return isVisibleDown(currentGroup, group);
+    }
+
+    public boolean isVisibleUpAndDownAndGroup(Group currentGroup, Group group) {
+        if (currentGroup == null) {
+            return false;
+        }
+        if (currentGroup.getId() == group.getId()) {
+            return true;
+        }
+        return isVisibleDown(currentGroup, group) && isVisibleUp(currentGroup, group);
     }
 
     private Group getVisibilityGroup() {
