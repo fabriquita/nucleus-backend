@@ -49,3 +49,12 @@ task popdbTask(type: GradleBuild) {
         tasks = ['bootRun']
     }
 }
+
+task addLicense(type: War) {
+    from {
+        ["license.txt", "notice.txt"]
+    }
+}
+
+task packLicenses(type: BootRepackage, dependsOn: addLicense) {
+}
