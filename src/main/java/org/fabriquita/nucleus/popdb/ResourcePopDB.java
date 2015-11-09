@@ -22,7 +22,8 @@ public class ResourcePopDB {
                 "role",
                 "resource",
                 "group",
-                "roleResource"
+                "roleResource",
+                "entity"
         };
         Group group1 = groupService.list().get(0);
         for (String resourceName : resources) {
