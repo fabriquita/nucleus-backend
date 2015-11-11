@@ -23,6 +23,7 @@ public class ResourcePopDB {
                 "resource",
                 "group",
                 "roleResource",
+                "collection",
                 "entity"
         };
         Group group1 = groupService.list().get(0);
