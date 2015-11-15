@@ -41,13 +41,23 @@ public class NEntityController {
     @RequestMapping(value = "/", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public NEntity add(@RequestBody Map<String, Object> data) {
         String name = null;
+        String content = null;
         Long groupId = null;
         if (data.get("name") != null) {
             name = (String) data.get("name");
+        } else {
+            throw new IllegalArgumentException(
+                    "'name' must not be null or empty");
+        }
+        if (data.get("content") != null) {
+            content = (String) data.get("content");
+        } else {
+            throw new IllegalArgumentException(
+                    "'content' must not be null or empty");
         }
         if (data.get("group_id") != null) {
             groupId = new Long(data.get("group_id").toString());
         }
-        return nEntityService.add(name, groupId);
+        return nEntityService.add(name, content, groupId);
     }
 }

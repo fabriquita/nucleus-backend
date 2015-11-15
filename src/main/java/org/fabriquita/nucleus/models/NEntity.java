@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -19,6 +20,10 @@ public class NEntity extends Mappable {
     
     @Column(nullable = false)
     String name;
+    
+    @Lob
+    @Column(nullable = false)
+    String content;
     
     @Column(nullable = false)
     Boolean active;
@@ -41,6 +46,14 @@ public class NEntity extends Mappable {
 
     public void setName(String name) {
         this.name = name;
+    }
+    
+    public String getContent() {
+        return content;
+    }
+    
+    public void setContent(String content) {
+        this.content = content;
     }
     
     public Boolean getActive() {

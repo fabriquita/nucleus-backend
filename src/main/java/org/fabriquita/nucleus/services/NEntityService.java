@@ -24,7 +24,7 @@ public class NEntityService {
         return nEntityRepository.findAll(pageRequest);
     }
     
-    public NEntity add(String name, Long groupId) {
+    public NEntity add(String name, String content, Long groupId) {
         NEntity nEntity = new NEntity();
         Group group = null;
         if (groupId != null) {
@@ -33,6 +33,7 @@ public class NEntityService {
             //TODO: check group visibility
         }
         nEntity.setName(name);
+        nEntity.setContent(content);
         nEntity.setGroup(group);
         // set an entity as active by default
         nEntity.setActive(true);
