@@ -42,6 +42,7 @@ public class NEntityController {
     public NEntity add(@RequestBody Map<String, Object> data) {
         String name = null;
         String content = null;
+        Long nCollectionId = null;
         Long groupId = null;
         if (data.get("name") != null) {
             name = (String) data.get("name");
@@ -55,9 +56,12 @@ public class NEntityController {
             throw new IllegalArgumentException(
                     "'content' must not be null or empty");
         }
+        if (data.get("collection_id") != null) {
+            nCollectionId = new Long(data.get("collection_id").toString());
+        }
         if (data.get("group_id") != null) {
             groupId = new Long(data.get("group_id").toString());
         }
-        return nEntityService.add(name, content, groupId);
+        return nEntityService.add(name, content, nCollectionId, groupId);
     }
 }

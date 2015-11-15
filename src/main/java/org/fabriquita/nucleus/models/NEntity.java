@@ -29,6 +29,10 @@ public class NEntity extends Mappable {
     Boolean active;
     
     @ManyToOne
+    @JoinColumn(name = "collection_id", nullable = false)
+    private NCollection nCollection;
+    
+    @ManyToOne
     @JoinColumn(name = "group_id", nullable = false)
     Group group;
     
@@ -62,6 +66,14 @@ public class NEntity extends Mappable {
 
     public void setActive(Boolean active) {
         this.active = active;
+    }
+    
+    public NCollection getNCollection() {
+        return nCollection;
+    }
+    
+    public void setNCollection(NCollection nCollection) {
+        this.nCollection = nCollection;
     }
     
     public Group getGroup() {
