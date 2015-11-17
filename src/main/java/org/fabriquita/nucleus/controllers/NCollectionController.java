@@ -10,6 +10,7 @@ import org.fabriquita.nucleus.services.NCollectionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -49,5 +50,20 @@ public class NCollectionController {
             groupId = new Long(data.get("group_id").toString());
         }
         return nCollectionService.add(name, groupId);
+    }
+    
+    @RequiresAuthentication
+    @RequiresPermissions("collection:u")
+    @RequestMapping(value = "/{id}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public NCollection update(@PathVariable(value = "id") Long id, @RequestBody Map<String, Object> data) {
+        String name = null;
+        Long groupId = null;
+        if (data.get("name") != null) {
+            name = (String) data.get("name");
+        }
+        if (data.get("group_id") != null) {
+            groupId = new Long(data.get("group_id").toString());
+        }
+        return nCollectionService.update(id, name, groupId);
     }
 }

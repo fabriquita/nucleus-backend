@@ -39,4 +39,20 @@ public class NCollectionService {
         nCollection.setActive(true);
         return nCollectionRepository.save(nCollection);
     }
+    
+    public NCollection update(Long id, String name, Long groupId) {
+        // TODO: find out in groups
+        NCollection nCollection = nCollectionRepository.findOne(id);
+        Group group = null; 
+        if (name != null) {
+            nCollection.setName(name);
+        }
+        if (groupId != null) {
+            group = groupRepository.findOne(groupId);
+        }
+        if(group != null){
+            nCollection.setGroup(group);
+        }
+        return nCollectionRepository.save(nCollection);
+    }
 }
