@@ -18,9 +18,6 @@ public class NEntity extends Mappable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     Long id;
     
-    @Column(nullable = false)
-    String name;
-    
     @Lob
     @Column(nullable = false)
     String content;
@@ -42,14 +39,6 @@ public class NEntity extends Mappable {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
     
     public String getContent() {

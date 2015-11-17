@@ -29,7 +29,7 @@ public class NEntityService {
         return nEntityRepository.findAll(pageRequest);
     }
     
-    public NEntity add(String name, String content, Long nCollectionId, Long groupId) {
+    public NEntity add(String content, Long nCollectionId, Long groupId) {
         NEntity nEntity = new NEntity();
         Group group = null;
         NCollection nCollection = null;
@@ -42,7 +42,6 @@ public class NEntityService {
             group = groupRepository.findOne(groupId);
             //TODO: check group visibility
         }
-        nEntity.setName(name);
         nEntity.setContent(content);
         nEntity.setNCollection(nCollection);
         nEntity.setGroup(group);
